@@ -1,0 +1,86 @@
+---
+import { useTranslations } from '../../i18n';
+import type { Locale } from '../../i18n';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<section class="py-section px-8 md:px-16 bg-hueso">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-32 items-center">
+
+    <!-- Texto -->
+    <div class="qh-text flex flex-col gap-8 opacity-0">
+      <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro">
+        {t('about.what_title')}
+      </p>
+      <h2 class="font-serif text-[clamp(2rem,4vw,3rem)] leading-tight text-noche">
+        {t('about.what_title')}
+      </h2>
+      <p class="font-serif italic text-noche/60 text-lg border-l-2 border-oro pl-6 leading-relaxed">
+        {t('about.what_sub')}
+      </p>
+
+      <!-- Filosofia -->
+      <div class="flex flex-col gap-4 mt-4">
+        <p class="font-sans text-sm text-noche/70 leading-relaxed font-light">
+          Poemarte es la voz de un poeta que mira el arte con los ojos del alma.
+          Detrás del proyecto hay un creador que ha hecho de la palabra un lugar
+          de encuentro con la belleza y la emoción.
+        </p>
+        <p class="font-sans text-sm text-noche/70 leading-relaxed font-light">
+          Su mirada se detiene en los detalles, escucha los colores, las texturas
+          y los silencios que habitan cada obra. Desde esa contemplación, traduce
+          lo que siente en versos que acompañan, interpretan y amplifican la
+          esencia de cada creación.
+        </p>
+        <p class="font-sans text-sm text-noche/70 leading-relaxed font-light">
+          En sus poemas se entrelazan emoción y oficio, hasta encontrar la
+          melodía que el arte guarda en secreto.
+        </p>
+      </div>
+    </div>
+
+    <!-- Imagen -->
+    <div class="qh-img relative opacity-0">
+      <div class="aspect-[4/5] overflow-hidden">
+        <img
+          src="/images/sobre-que-hacemos.jpg"
+          alt="Que es Poemarte"
+          class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+        />
+      </div>
+      <div class="absolute -top-6 -left-6 w-full h-full border border-oro/20 z-[-1]"></div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.to('.qh-text', {
+    scrollTrigger: { trigger: '.qh-text', start: 'top 80%' },
+    opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+  });
+  gsap.from('.qh-text', { x: -50 });
+
+  gsap.to('.qh-img', {
+    scrollTrigger: { trigger: '.qh-img', start: 'top 80%' },
+    opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+  });
+  gsap.from('.qh-img', { x: 50 });
+</script>
+
+<style>
+  .bg-hueso   { background-color: var(--color-hueso); }
+  .text-noche { color: var(--color-noche); }
+  .text-oro   { color: var(--color-oro); }
+  .border-oro { border-color: var(--color-oro); }
+  .font-serif { font-family: var(--font-serif); }
+  .font-sans  { font-family: var(--font-sans); }
+  .py-section { padding-top: var(--spacing-section); padding-bottom: var(--spacing-section); }
+</style>

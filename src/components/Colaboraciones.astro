@@ -1,0 +1,107 @@
+---
+import { useTranslations, getLocalePath } from '../i18n';
+import type { Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+// Datos de las colaboraciones — cuando tengamos Keystatic vendrán del CMS
+const colaboraciones = [
+  { slug: 'sylvias-box',          name: "Sylvia's Box",             image: '/images/colab-sylvias-box.jpg' },
+  { slug: 'gonsan',               name: 'Exposición GonSan',        image: '/images/colab-gonsan.jpg' },
+  { slug: 'carmen-mascarell',     name: 'Carmen J. Mascarell',      image: '/images/colab-carmen.jpg' },
+  { slug: 'hygge-cotton',         name: 'Hygge Cotton',             image: '/images/colab-hygge.jpg' },
+  { slug: 'jorge-castro',         name: 'Jorge Castro',             image: '/images/colab-jorge.jpg' },
+  { slug: 'carlos-gonzalez',      name: 'Carlos González',          image: '/images/colab-carlos.jpg' },
+];
+---
+
+<section id="colaboraciones" class="py-section px-8 md:px-16 bg-hueso overflow-hidden">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Cabecera -->
+    <div class="text-center mb-16 reveal-up">
+      <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro mb-4">
+        {t('collaborations.title')}
+      </p>
+      <h2 class="font-serif text-[clamp(2rem,5vw,3.5rem)] text-noche leading-tight">
+        {t('collaborations.tagline')}
+      </h2>
+    </div>
+
+    <!-- Grid asimétrico -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {colaboraciones.map((colab, i) => (
+        <article
+          class={`colab-card group relative overflow-hidden ${i === 0 ? 'sm:col-span-2 lg:col-span-1' : ''}`}
+        >
+          <a href={getLocalePath(locale, `colaboraciones/${colab.slug}`)}>
+
+            <!-- Imagen -->
+            <div class="aspect-[3/4] overflow-hidden bg-noche/10">
+              <img
+                src={colab.image}
+                alt={colab.name}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+
+            <!-- Overlay en hover -->
+            <div class="absolute inset-0 bg-noche/0 group-hover:bg-noche/50 transition-colors duration-500 flex items-end p-6">
+              <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+                <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-oro">Ver colaboración</span>
+                <div class="w-8 h-px bg-oro mt-2"></div>
+              </div>
+            </div>
+
+          </a>
+
+          <!-- Nombre -->
+          <div class="pt-4">
+            <h3 class="font-serif text-noche text-lg">{colab.name}</h3>
+          </div>
+
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from('.reveal-up', {
+    scrollTrigger: { trigger: '#colaboraciones', start: 'top 85%' },
+    y: 40,
+    opacity: 0,
+    duration: 0.9,
+    ease: 'power3.out',
+  });
+
+  gsap.from('.colab-card', {
+    scrollTrigger: { trigger: '.colab-card', start: 'top 90%' },
+    y: 60,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.1,
+    ease: 'power3.out',
+  });
+</script>
+
+<style>
+  .bg-hueso    { background-color: var(--color-hueso); }
+  .bg-noche    { background-color: var(--color-noche); }
+  .text-noche  { color: var(--color-noche); }
+  .text-oro    { color: var(--color-oro); }
+  .font-serif  { font-family: var(--font-serif); }
+  .font-sans   { font-family: var(--font-sans); }
+  .py-section  { padding-top: var(--spacing-section); padding-bottom: var(--spacing-section); }
+</style>

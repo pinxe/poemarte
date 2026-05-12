@@ -1,0 +1,53 @@
+---
+import { useTranslations, getLocalePath } from '../i18n';
+import type { Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-pergamino/10 px-8 py-16 md:px-16">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+
+    <!-- Marca -->
+    <div class="text-center md:text-left">
+      <p class="font-serif text-2xl text-pergamino tracking-widest uppercase">Poemarte</p>
+      <p class="font-serif italic text-ceniza text-sm mt-1">{t('footer.tagline')}</p>
+    </div>
+
+    <!-- Nav secundaria -->
+    <nav class="flex flex-wrap justify-center gap-8">
+      <a href={getLocalePath(locale)} class="text-xs tracking-[0.2em] uppercase text-ceniza hover:text-oro transition-colors duration-300">
+        {t('nav.home')}
+      </a>
+      <a href={getLocalePath(locale, 'sobre')} class="text-xs tracking-[0.2em] uppercase text-ceniza hover:text-oro transition-colors duration-300">
+        {t('nav.about')}
+      </a>
+      <a href={getLocalePath(locale, 'servicios')} class="text-xs tracking-[0.2em] uppercase text-ceniza hover:text-oro transition-colors duration-300">
+        {t('nav.services')}
+      </a>
+      <a href={getLocalePath(locale, 'contacto')} class="text-xs tracking-[0.2em] uppercase text-ceniza hover:text-oro transition-colors duration-300">
+        {t('nav.contact')}
+      </a>
+    </nav>
+
+    <!-- Copyright -->
+    <p class="text-xs text-ceniza/50 tracking-widest">
+      © {year} Poemarte — {t('footer.rights')}
+    </p>
+
+  </div>
+</footer>
+
+<style>
+  .text-pergamino { color: var(--color-pergamino); }
+  .text-ceniza    { color: var(--color-ceniza); }
+  .text-oro       { color: var(--color-oro); }
+  .border-pergamino\/10 { border-color: color-mix(in srgb, var(--color-pergamino) 10%, transparent); }
+  .font-serif     { font-family: var(--font-serif); }
+</style>

@@ -1,0 +1,140 @@
+---
+import { useTranslations } from '../i18n';
+import type { Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+
+  <!-- Imagen de fondo con parallax -->
+  <div id="hero-bg" class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-noche/60 z-10"></div>
+    <img
+      id="hero-img"
+      src="/images/hero.jpg"
+      alt=""
+      aria-hidden="true"
+      class="w-full h-full object-cover scale-110"
+    />
+  </div>
+
+  <!-- Linea decorativa izquierda -->
+  <div id="hero-line-left" class="absolute left-8 md:left-16 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4 z-20 opacity-0">
+    <div class="w-px h-24 bg-oro/40"></div>
+    <p class="font-sans text-[10px] tracking-[0.4em] uppercase text-ceniza writing-vertical">
+      {t('hero.subtitle')}
+    </p>
+  </div>
+
+  <!-- Contenido central -->
+  <div class="relative z-20 text-center px-8 flex flex-col items-center">
+
+    <!-- Subtitulo superior -->
+    <p id="hero-eyebrow" class="font-sans text-xs tracking-[0.5em] uppercase text-oro mb-10 opacity-0">
+      {t('hero.subtitle')}
+    </p>
+
+    <!-- Titulo en fade letra a letra -->
+    <h1 id="hero-title" class="font-serif text-[clamp(5rem,15vw,14rem)] leading-none text-pergamino tracking-[0.15em] uppercase">
+      {t('hero.title').split('').map((char: string) => (
+        <span class="hero-char inline-block opacity-0">{char === ' ' ? ' ' : char}</span>
+      ))}
+    </h1>
+
+    <!-- Separador -->
+    <div id="hero-divider" class="w-0 h-px bg-oro/50 my-10 opacity-0"></div>
+
+    <!-- Tagline -->
+    <p id="hero-tagline" class="font-serif italic text-ceniza text-lg md:text-xl max-w-lg leading-relaxed opacity-0">
+      {t('presentation.tagline')}
+    </p>
+
+    <!-- CTA scroll -->
+    <a
+      id="hero-cta"
+      href="#presentacion"
+      class="mt-16 opacity-0 flex flex-col items-center gap-3 group"
+      aria-label="Scroll"
+    >
+      <span class="font-sans text-[10px] tracking-[0.4em] uppercase text-ceniza group-hover:text-oro transition-colors duration-300">
+        scroll
+      </span>
+      <div class="w-px h-16 bg-gradient-to-b from-ceniza to-transparent group-hover:from-oro transition-colors duration-300"></div>
+    </a>
+
+  </div>
+
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const tl = gsap.timeline({ delay: 0.4 });
+
+  // Fade puro letra a letra — sin desplazamiento vertical
+  tl.to('.hero-char', {
+    opacity: 1,
+    duration: 0.9,
+    stagger: 0.06,
+    ease: 'power1.inOut',
+  })
+  // Eyebrow
+  .to('#hero-eyebrow', {
+    opacity: 1,
+    duration: 0.8,
+    ease: 'power2.out',
+  }, '-=0.6')
+  // Separador
+  .to('#hero-divider', {
+    opacity: 1,
+    width: '4rem',
+    duration: 0.8,
+    ease: 'power2.out',
+  }, '-=0.3')
+  // Tagline
+  .to('#hero-tagline', {
+    opacity: 1,
+    duration: 1,
+    ease: 'power2.out',
+  }, '-=0.5')
+  // Linea lateral
+  .to('#hero-line-left', {
+    opacity: 1,
+    duration: 1,
+    ease: 'power2.out',
+  }, '-=0.5')
+  // CTA
+  .to('#hero-cta', {
+    opacity: 1,
+    duration: 0.8,
+    ease: 'power2.out',
+  }, '-=0.3');
+
+  // Parallax en scroll
+  const heroImg = document.getElementById('hero-img');
+  window.addEventListener('scroll', () => {
+    if (heroImg) {
+      heroImg.style.transform = `scale(1.1) translateY(${window.scrollY * 0.3}px)`;
+    }
+  }, { passive: true });
+</script>
+
+<style>
+  .bg-noche       { background-color: var(--color-noche); }
+  .text-pergamino { color: var(--color-pergamino); }
+  .text-oro       { color: var(--color-oro); }
+  .text-ceniza    { color: var(--color-ceniza); }
+  .font-serif     { font-family: var(--font-serif); }
+  .font-sans      { font-family: var(--font-sans); }
+
+  .writing-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+</style>

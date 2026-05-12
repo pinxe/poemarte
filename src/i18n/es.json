@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre Poemarte",
+    "services": "Servicios",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "title": "POEMARTE",
+    "subtitle": "Banda Sonora de Palabras"
+  },
+  "presentation": {
+    "concept": "El arte también se escucha",
+    "tagline": "El arte se escucha en silencio, hasta que las palabras componen su banda sonora",
+    "body1": "Poemarte nace del deseo de acompañar la creación artística con la fuerza de la palabra. Cada poema es un eco, una caricia que traduce lo que la obra sugiere. Una banda sonora de palabras que invita a sentir el arte con todos los sentidos.",
+    "body2": "Poemarte es una invitación a mirar con el alma y escuchar con el corazón. A descubrir que cada obra guarda un latido, una respiración propia, que las palabras pueden despertar.",
+    "body3": "Cada obra guarda una historia que merece ser contada."
+  },
+  "services": {
+    "title": "Servicios",
+    "exposiciones": "Exposiciones",
+    "exposiciones_sub": "Versos que acompañan la mirada",
+    "artesanales": "Piezas Artesanales",
+    "artesanales_sub": "La palabra como sello de lo hecho a mano",
+    "colaboraciones": "Colaboraciones",
+    "colaboraciones_sub": "Poemas a medida, creados desde la esencia",
+    "merchandising": "Merchandising",
+    "merchandising_sub": "Objetos donde la poesía toma forma"
+  },
+  "collaborations": {
+    "title": "Colaboraciones recientes",
+    "tagline": "Cada colaboración es un diálogo entre arte y palabra"
+  },
+  "about": {
+    "title": "Sobre Poemarte",
+    "subtitle": "Banda Sonora de Palabras",
+    "what_title": "¿Qué es Poemarte?",
+    "what_sub": "Poemarte escucha las obras de arte y escribe su banda sonora de palabras.",
+    "passion_title": "Nuestra pasión",
+    "process_title": "El proceso de creación poética",
+    "goal_title": "Nuestro objetivo",
+    "goal_sub": "Ampliar la experiencia del arte.",
+    "price_title": "Guía de precios"
+  },
+  "process": {
+    "phase1_title": "Escuchar la obra",
+    "phase1_sub": "Todo comienza con un encuentro con la obra.",
+    "phase2_title": "Escribir su banda sonora de palabras",
+    "phase2_sub": "A partir de esa experiencia se crea un poema original inspirado en la obra.",
+    "phase3_title": "El arte se expande",
+    "phase3_sub": "El último paso es decidir cómo el poema acompañará a la obra."
+  },
+  "footer": {
+    "tagline": "Banda Sonora de Palabras",
+    "rights": "Todos los derechos reservados"
+  },
+  "meta": {
+    "description": "Poemarte crea poemas inspirados en obras de arte. Una banda sonora de palabras para artistas, artesanos y galerías."
+  }
+}

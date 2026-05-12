@@ -1,0 +1,62 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Cursor from '../components/Cursor.astro';
+import { useTranslations } from '../i18n';
+import type { Locale } from '../i18n';
+import '../styles/global.css';
+
+interface Props {
+  locale: Locale;
+  title?: string;
+  description?: string;
+  currentPath?: string;
+}
+
+const { locale, title, description, currentPath } = Astro.props;
+const t = useTranslations(locale);
+
+const pageTitle = title ? `${title} — Poemarte` : 'Poemarte — Banda Sonora de Palabras';
+const pageDescription = description ?? t('meta.description');
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={pageDescription} />
+
+    <!-- SEO -->
+    <title>{pageTitle}</title>
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content="website" />
+
+    <!-- hreflang para multiidioma -->
+    <link rel="alternate" hreflang="es" href={`/`} />
+    <link rel="alternate" hreflang="ca" href={`/ca/`} />
+    <link rel="alternate" hreflang="en" href={`/en/`} />
+    <link rel="alternate" hreflang="x-default" href={`/`} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+
+  <body>
+    <Cursor />
+    <Nav locale={locale} currentPath={currentPath} />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer locale={locale} />
+
+    <!-- Transición de página: fundido a negro -->
+    <div id="page-transition" class="fixed inset-0 bg-noche z-[9998] pointer-events-none opacity-0 transition-opacity duration-500"></div>
+  </body>
+</html>
+
+<style>
+  .bg-noche { background-color: var(--color-noche); }
+</style>

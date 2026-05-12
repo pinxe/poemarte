@@ -1,0 +1,48 @@
+---
+import { useTranslations } from '../../i18n';
+import type { Locale } from '../../i18n';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<section class="relative min-h-[60vh] flex flex-col items-center justify-end pb-24 overflow-hidden">
+
+  <!-- Fondo -->
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-noche/70 z-10"></div>
+    <img
+      src="/images/sobre-hero.jpg"
+      alt=""
+      aria-hidden="true"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <!-- Contenido -->
+  <div class="relative z-20 text-center px-8">
+    <p class="sobre-eyebrow font-sans text-[10px] tracking-[0.5em] uppercase text-oro mb-6 opacity-0">
+      {t('about.subtitle')}
+    </p>
+    <h1 class="sobre-title font-serif text-[clamp(3rem,10vw,8rem)] leading-none text-pergamino tracking-[0.1em] uppercase opacity-0">
+      {t('about.title')}
+    </h1>
+  </div>
+
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  const tl = gsap.timeline({ delay: 0.3 });
+  tl.to('.sobre-eyebrow', { opacity: 1, duration: 0.8, ease: 'power2.out' })
+    .to('.sobre-title',   { opacity: 1, duration: 1.2, ease: 'power2.out' }, '-=0.4');
+</script>
+
+<style>
+  .bg-noche       { background-color: var(--color-noche); }
+  .text-pergamino { color: var(--color-pergamino); }
+  .text-oro       { color: var(--color-oro); }
+  .font-serif     { font-family: var(--font-serif); }
+  .font-sans      { font-family: var(--font-sans); }
+</style>

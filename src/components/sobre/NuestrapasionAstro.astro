@@ -1,0 +1,114 @@
+---
+import { useTranslations } from '../../i18n';
+import type { Locale } from '../../i18n';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const tips = [
+  {
+    title: 'Escuchar el arte con atencion',
+    body:  'Cada obra tiene un lenguaje propio que se revela cuando nos detenemos a contemplarla sin prisa.',
+  },
+  {
+    title: 'Dejar que el poema nazca de la obra',
+    body:  'La poesia no explica el arte: dialoga con el y acompana su significado.',
+  },
+  {
+    title: 'Crear experiencias que conectan',
+    body:  'Cuando arte y palabra se encuentran, la relacion entre la obra y el espectador se vuelve mas profunda.',
+  },
+];
+---
+
+<section class="py-section px-8 md:px-16 bg-noche overflow-hidden">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Cabecera -->
+    <div class="passion-header grid md:grid-cols-2 gap-16 items-end mb-20 opacity-0">
+      <div>
+        <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro mb-6">
+          {t('about.passion_title')}
+        </p>
+        <h2 class="font-serif text-[clamp(2.5rem,6vw,5rem)] leading-tight text-pergamino">
+          {t('about.passion_title')}
+        </h2>
+      </div>
+      <div class="flex flex-col gap-5">
+        <p class="font-serif italic text-ceniza text-lg leading-relaxed">
+          {t('presentation.body1')}
+        </p>
+        <p class="font-sans text-sm text-ceniza/70 leading-relaxed font-light">
+          Cada obra contiene una emocion, un ritmo o una historia que se revela
+          cuando nos detenemos a contemplarla con atencion. La poesia permite
+          acercarse a ese territorio invisible.
+        </p>
+      </div>
+    </div>
+
+    <!-- Imagen full-width con cita encima -->
+    <div class="passion-img relative mb-20 opacity-0">
+      <div class="aspect-[16/6] overflow-hidden">
+        <img
+          src="/images/sobre-pasion.jpg"
+          alt="Nuestra pasion"
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-noche/80 to-transparent"></div>
+      </div>
+      <div class="absolute inset-0 flex items-center px-10 md:px-20">
+        <blockquote class="max-w-lg">
+          <p class="font-serif italic text-pergamino text-2xl md:text-3xl leading-relaxed">
+            "Creemos que el arte no solo se mira: tambien se escucha."
+          </p>
+        </blockquote>
+      </div>
+    </div>
+
+    <!-- Tips: 3 columnas -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-pergamino/10">
+      {tips.map((tip, i) => (
+        <div class="tip-card bg-noche p-10 flex flex-col gap-4 opacity-0">
+          <span class="font-serif text-5xl text-oro/20 leading-none">0{i + 1}</span>
+          <h3 class="font-serif text-pergamino text-xl leading-tight">{tip.title}</h3>
+          <p class="font-sans text-ceniza/70 text-sm leading-relaxed font-light">{tip.body}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.to('.passion-header', {
+    scrollTrigger: { trigger: '.passion-header', start: 'top 80%' },
+    opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+  });
+  gsap.from('.passion-header', { y: 40 });
+
+  gsap.to('.passion-img', {
+    scrollTrigger: { trigger: '.passion-img', start: 'top 85%' },
+    opacity: 1, duration: 1.2, ease: 'power2.out',
+  });
+
+  gsap.to('.tip-card', {
+    scrollTrigger: { trigger: '.tip-card', start: 'top 85%' },
+    opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+  });
+  gsap.from('.tip-card', { y: 30 });
+</script>
+
+<style>
+  .bg-noche       { background-color: var(--color-noche); }
+  .text-pergamino { color: var(--color-pergamino); }
+  .text-ceniza    { color: var(--color-ceniza); }
+  .text-oro       { color: var(--color-oro); }
+  .font-serif     { font-family: var(--font-serif); }
+  .font-sans      { font-family: var(--font-sans); }
+  .py-section     { padding-top: var(--spacing-section); padding-bottom: var(--spacing-section); }
+</style>
