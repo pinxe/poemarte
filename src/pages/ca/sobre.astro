@@ -1,0 +1,22 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SobreHero from '../../components/sobre/SobreHero.astro';
+import QueHacemos from '../../components/sobre/QueHacemos.astro';
+import NuestraPassion from '../../components/sobre/NuestrapasionAstro.astro';
+import ProcesoCreativo from '../../components/sobre/ProcesoCreativo.astro';
+import Objetivo from '../../components/sobre/Objetivo.astro';
+import GuiaPrecios from '../../components/sobre/GuiaPrecios.astro';
+import { useTranslations } from '../../i18n';
+
+const locale = 'ca';
+const t = useTranslations(locale);
+---
+
+<Layout locale={locale} title={t('about.title')} currentPath="sobre">
+  <SobreHero locale={locale} />
+  <QueHacemos locale={locale} />
+  <NuestraPassion locale={locale} />
+  <ProcesoCreativo locale={locale} />
+  <Objetivo locale={locale} />
+  <GuiaPrecios locale={locale} />
+</Layout>

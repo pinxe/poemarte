@@ -56,5 +56,16 @@
   },
   "meta": {
     "description": "Poemarte crea poemes inspirats en obres d'art. Una banda sonora de paraules per a artistes, artesans i galeries."
+  },
+  "contact": {
+    "eyebrow": "Parlem",
+    "title": "Explica’ns el teu projecte",
+    "tagline": "Cada col·laboració comença amb una conversa. Escriu-nos i donarem veu a la teva obra.",
+    "name": "Nom",
+    "email": "Email",
+    "message": "El teu missatge",
+    "send": "Enviar",
+    "or": "o escriu-nos directament a",
+    "thanks": "Gràcies. Et respondrem aviat."
   }
 }

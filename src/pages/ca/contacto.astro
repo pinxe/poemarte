@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Contacto from '../../components/Contacto.astro';
+import { useTranslations } from '../../i18n';
+
+const locale = 'ca';
+const t = useTranslations(locale);
+---
+
+<Layout locale={locale} title={t('nav.contact')} currentPath="contacto">
+  <Contacto locale={locale} />
+</Layout>

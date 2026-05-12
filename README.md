@@ -1,43 +1,53 @@
-# Astro Starter Kit: Minimal
+# Poemarte
+
+Web de Poemarte — *Banda Sonora de Palabras*.
+
+## Stack
+
+- **Astro** (output: static) — generación estática + endpoints SSR para Keystatic
+- **Tailwind CSS v4** — estilos
+- **GSAP + ScrollTrigger** — animaciones
+- **Keystatic CMS** — edición visual de contenido
+- **i18n** — castellano, catalán, inglés
+- **Vercel adapter** — hosting
+
+## Estructura
+
+```
+src/
+├── components/      # Hero, Footer, Nav, Cursor + secciones por página
+│   ├── sobre/       # secciones de /sobre
+│   └── servicios/   # secciones de /servicios
+├── content/         # colaboraciones (gestionadas por Keystatic)
+│   └── colaboraciones/{es,ca,en}/
+├── i18n/            # es.json, ca.json, en.json + helper t()
+├── layouts/
+│   └── Layout.astro # layout base con SEO, hreflang, cursor, transición
+├── pages/
+│   ├── index.astro          # HOME (es por defecto)
+│   ├── sobre.astro          # SOBRE
+│   ├── servicios.astro      # SERVICIOS
+│   ├── contacto.astro       # CONTACTO
+│   ├── ca/                  # versiones en catalán
+│   ├── en/                  # versiones en inglés
+│   ├── keystatic/[...].astro     # panel CMS
+│   └── api/keystatic/[...].ts    # endpoints CMS
+└── styles/
+    └── global.css   # paleta, tipografías, scrollbar, cursor
+```
+
+## Comandos
 
 ```sh
-npm create astro@latest -- --template minimal
+npm run dev      # localhost:4321
+npm run build    # build de producción
+npm run preview  # preview del build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## CMS
 
-## 🚀 Project Structure
+Editor visual en `/keystatic` (solo dev por ahora).
 
-Inside of your Astro project, you'll see the following folders and files:
+## Deploy
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Configurado con `@astrojs/vercel`. Push a `main` → deploy automático.

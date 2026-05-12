@@ -56,5 +56,16 @@
   },
   "meta": {
     "description": "Poemarte creates poems inspired by works of art. A soundtrack of words for artists, craftspeople and galleries."
+  },
+  "contact": {
+    "eyebrow": "Let's talk",
+    "title": "Tell us about your project",
+    "tagline": "Every collaboration begins with a conversation. Write to us and we will give voice to your work.",
+    "name": "Name",
+    "email": "Email",
+    "message": "Your message",
+    "send": "Send",
+    "or": "or write to us directly at",
+    "thanks": "Thank you. We will reply soon."
   }
 }

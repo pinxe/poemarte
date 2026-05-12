@@ -1,0 +1,16 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Presentacion from '../../components/Presentacion.astro';
+import Servicios from '../../components/Servicios.astro';
+import Colaboraciones from '../../components/Colaboraciones.astro';
+
+const locale = 'ca';
+---
+
+<Layout locale={locale}>
+  <Hero locale={locale} />
+  <Presentacion locale={locale} />
+  <Servicios locale={locale} />
+  <Colaboraciones locale={locale} />
+</Layout>

@@ -56,5 +56,16 @@
   },
   "meta": {
     "description": "Poemarte crea poemas inspirados en obras de arte. Una banda sonora de palabras para artistas, artesanos y galerías."
+  },
+  "contact": {
+    "eyebrow": "Hablemos",
+    "title": "Cuéntanos tu proyecto",
+    "tagline": "Cada colaboración empieza con una conversación. Escríbenos y daremos voz a tu obra.",
+    "name": "Nombre",
+    "email": "Email",
+    "message": "Tu mensaje",
+    "send": "Enviar",
+    "or": "o escríbenos directamente a",
+    "thanks": "Gracias. Te responderemos pronto."
   }
 }

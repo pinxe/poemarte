@@ -1,0 +1,129 @@
+---
+import { useTranslations } from '../i18n';
+import type { Locale } from '../i18n';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<section class="min-h-screen flex items-center py-section px-8 md:px-16 bg-noche relative overflow-hidden">
+
+  <!-- Decoración: gran letra de fondo -->
+  <span class="absolute right-0 bottom-0 font-serif text-[40rem] leading-none text-pergamino/[0.02] select-none pointer-events-none">
+    .
+  </span>
+
+  <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-16 md:gap-32 items-center relative z-10">
+
+    <!-- Texto -->
+    <div class="contact-text flex flex-col gap-8 opacity-0">
+      <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro">
+        {t('contact.eyebrow')}
+      </p>
+      <h1 class="font-serif text-[clamp(2.5rem,6vw,5rem)] leading-tight text-pergamino">
+        {t('contact.title')}
+      </h1>
+      <p class="font-serif italic text-ceniza text-lg leading-relaxed max-w-md">
+        {t('contact.tagline')}
+      </p>
+
+      <!-- Email directo -->
+      <div class="border-t border-pergamino/10 pt-8 mt-4">
+        <p class="font-sans text-xs text-ceniza/60 mb-3">{t('contact.or')}</p>
+        <a
+          href="mailto:hola@poemarte.com"
+          class="font-serif italic text-oro text-xl hover:text-pergamino transition-colors duration-300"
+        >
+          hola@poemarte.com
+        </a>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <form
+      class="contact-form flex flex-col gap-6 opacity-0"
+      action="https://formspree.io/f/REEMPLAZAR_ID"
+      method="POST"
+    >
+
+      <div class="flex flex-col gap-2">
+        <label for="name" class="font-sans text-[10px] tracking-[0.3em] uppercase text-ceniza/70">
+          {t('contact.name')}
+        </label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          required
+          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-sm"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="email" class="font-sans text-[10px] tracking-[0.3em] uppercase text-ceniza/70">
+          {t('contact.email')}
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-sm"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="message" class="font-sans text-[10px] tracking-[0.3em] uppercase text-ceniza/70">
+          {t('contact.message')}
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          required
+          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-sm resize-none"
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="self-start mt-6 flex items-center gap-4 font-sans text-xs tracking-[0.3em] uppercase text-pergamino hover:text-oro transition-colors duration-300 group"
+      >
+        <span>{t('contact.send')}</span>
+        <span class="block w-8 h-px bg-pergamino group-hover:bg-oro group-hover:w-12 transition-all duration-300"></span>
+      </button>
+
+    </form>
+
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.to('.contact-text', {
+    scrollTrigger: { trigger: '.contact-text', start: 'top 80%' },
+    opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+  });
+  gsap.from('.contact-text', { y: 30 });
+
+  gsap.to('.contact-form', {
+    scrollTrigger: { trigger: '.contact-form', start: 'top 80%' },
+    opacity: 1, y: 0, duration: 1, delay: 0.2, ease: 'power3.out',
+  });
+  gsap.from('.contact-form', { y: 30 });
+</script>
+
+<style>
+  .bg-noche       { background-color: var(--color-noche); }
+  .text-pergamino { color: var(--color-pergamino); }
+  .text-ceniza    { color: var(--color-ceniza); }
+  .text-oro       { color: var(--color-oro); }
+  .bg-oro         { background-color: var(--color-oro); }
+  .font-serif     { font-family: var(--font-serif); }
+  .font-sans      { font-family: var(--font-sans); }
+  .py-section     { padding-top: var(--spacing-section); padding-bottom: var(--spacing-section); }
+</style>
