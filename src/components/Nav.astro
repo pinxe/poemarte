@@ -18,8 +18,11 @@ const navLinks = [
 ];
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 mix-blend-difference">
-  <nav class="flex items-center justify-between px-8 py-6 md:px-16">
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out"
+>
+  <nav class="flex items-center justify-between px-8 py-6 md:px-16 transition-all duration-500">
 
     <!-- Logo -->
     <a href={getLocalePath(locale)} class="font-serif text-xl tracking-widest text-pergamino uppercase">
@@ -88,6 +91,24 @@ const navLinks = [
     menu?.classList.toggle('hidden');
     menu?.classList.toggle('flex');
   });
+
+  // Header con fondo al hacer scroll
+  const header = document.getElementById('site-header');
+  const nav = header?.querySelector('nav');
+
+  const handleScroll = () => {
+    if (!header || !nav) return;
+    if (window.scrollY > 40) {
+      header.classList.add('is-scrolled');
+      nav.classList.add('is-scrolled-nav');
+    } else {
+      header.classList.remove('is-scrolled');
+      nav.classList.remove('is-scrolled-nav');
+    }
+  };
+
+  handleScroll();
+  window.addEventListener('scroll', handleScroll, { passive: true });
 </script>
 
 <style>
@@ -96,4 +117,25 @@ const navLinks = [
   .bg-noche       { background-color: var(--color-noche); }
   .font-serif     { font-family: var(--font-serif); }
   .font-sans      { font-family: var(--font-sans); }
+
+  /* Estado por defecto: transparente */
+  #site-header {
+    background-color: transparent;
+    backdrop-filter: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  /* Estado scrolled: fondo oscuro con blur */
+  #site-header.is-scrolled {
+    background-color: color-mix(in srgb, var(--color-noche) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-pergamino) 8%, transparent);
+  }
+
+  /* Cuando scrolled, padding más compacto */
+  nav.is-scrolled-nav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
 </style>
