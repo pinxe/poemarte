@@ -1,4 +1,4 @@
----
+﻿---
 import { useTranslations, getLocalePath } from '../i18n';
 import type { Locale } from '../i18n';
 
@@ -22,22 +22,22 @@ const year = new Date().getFullYear();
 
     <!-- Nav secundaria -->
     <nav class="flex flex-wrap justify-center gap-8">
-      <a href={getLocalePath(locale)} class="text-xs tracking-[0.2em] uppercase text-ceniza hover:text-oro transition-colors duration-300">
+      <a href={getLocalePath(locale)} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">
         {t('nav.home')}
       </a>
-      <a href={getLocalePath(locale, 'sobre')} class="text-xs tracking-[0.2em] uppercase text-ceniza hover:text-oro transition-colors duration-300">
+      <a href={getLocalePath(locale, 'sobre')} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">
         {t('nav.about')}
       </a>
-      <a href={getLocalePath(locale, 'servicios')} class="text-xs tracking-[0.2em] uppercase text-ceniza hover:text-oro transition-colors duration-300">
+      <a href={getLocalePath(locale, 'servicios')} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">
         {t('nav.services')}
       </a>
-      <a href={getLocalePath(locale, 'contacto')} class="text-xs tracking-[0.2em] uppercase text-ceniza hover:text-oro transition-colors duration-300">
+      <a href={getLocalePath(locale, 'contacto')} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">
         {t('nav.contact')}
       </a>
     </nav>
 
     <!-- Copyright -->
-    <p class="text-xs text-ceniza/50 tracking-widest">
+    <p class="text-xs text-pergamino/65 tracking-widest">
       © {year} Poemarte — {t('footer.rights')}
     </p>
 

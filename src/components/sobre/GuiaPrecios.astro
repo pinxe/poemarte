@@ -1,4 +1,4 @@
----
+﻿---
 import { useTranslations, getLocalePath } from '../../i18n';
 import type { Locale } from '../../i18n';
 
@@ -39,7 +39,7 @@ const opciones = [
       <h2 class="font-serif text-[clamp(2rem,5vw,4rem)] leading-tight text-noche">
         {t('about.price_title')}
       </h2>
-      <p class="font-sans text-sm text-noche/50 mt-6 max-w-lg mx-auto leading-relaxed font-light">
+      <p class="font-sans text-base text-noche/75 mt-6 max-w-lg mx-auto leading-relaxed">
         Cada proyecto de Poemarte es unico, porque cada obra tambien lo es.
         Las colaboraciones se disenan de forma personalizada.
       </p>
@@ -51,10 +51,10 @@ const opciones = [
         <div class="precio-card bg-noche flex flex-col gap-6 p-10 opacity-0 group hover:border-oro/30 border border-pergamino/5 transition-colors duration-300">
           <span class="font-serif text-5xl text-oro/20 leading-none">{op.num}</span>
           <h3 class="font-serif text-pergamino text-xl">{op.titulo}</h3>
-          <p class="font-sans text-ceniza/60 text-sm leading-relaxed font-light flex-1">{op.desc}</p>
+          <p class="font-sans text-pergamino/85 text-base leading-relaxed flex-1">{op.desc}</p>
           <ul class="flex flex-col gap-2 border-t border-pergamino/10 pt-6">
             {op.items.map(item => (
-              <li class="flex items-start gap-3 font-sans text-xs text-ceniza/50 font-light">
+              <li class="flex items-start gap-3 font-sans text-sm text-pergamino/75">
                 <span class="text-oro mt-0.5 flex-shrink-0">—</span>
                 {item}
               </li>
@@ -66,7 +66,7 @@ const opciones = [
 
     <!-- CTA contacto -->
     <div class="text-center opacity-0 precios-cta">
-      <p class="font-serif italic text-noche/60 mb-6">
+      <p class="font-serif italic text-noche/75 mb-6">
         Tras una primera conversacion para conocer el proyecto, se propone una
         colaboracion adaptada a tus necesidades.
       </p>

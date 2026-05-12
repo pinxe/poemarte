@@ -1,4 +1,4 @@
----
+﻿---
 import { useTranslations } from '../i18n';
 import type { Locale } from '../i18n';
 
@@ -30,7 +30,7 @@ const t = useTranslations(locale);
 
       <!-- Email directo -->
       <div class="border-t border-pergamino/10 pt-8 mt-4">
-        <p class="font-sans text-xs text-ceniza/60 mb-3">{t('contact.or')}</p>
+        <p class="font-sans text-xs text-pergamino/75 mb-3">{t('contact.or')}</p>
         <a
           href="mailto:hola@poemarte.com"
           class="font-serif italic text-oro text-xl hover:text-pergamino transition-colors duration-300"
@@ -48,7 +48,7 @@ const t = useTranslations(locale);
     >
 
       <div class="flex flex-col gap-2">
-        <label for="name" class="font-sans text-[10px] tracking-[0.3em] uppercase text-ceniza/70">
+        <label for="name" class="font-sans text-[10px] tracking-[0.3em] uppercase text-pergamino/80">
           {t('contact.name')}
         </label>
         <input
@@ -56,12 +56,12 @@ const t = useTranslations(locale);
           name="name"
           type="text"
           required
-          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-sm"
+          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-base"
         />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="email" class="font-sans text-[10px] tracking-[0.3em] uppercase text-ceniza/70">
+        <label for="email" class="font-sans text-[10px] tracking-[0.3em] uppercase text-pergamino/80">
           {t('contact.email')}
         </label>
         <input
@@ -69,12 +69,12 @@ const t = useTranslations(locale);
           name="email"
           type="email"
           required
-          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-sm"
+          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-base"
         />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="message" class="font-sans text-[10px] tracking-[0.3em] uppercase text-ceniza/70">
+        <label for="message" class="font-sans text-[10px] tracking-[0.3em] uppercase text-pergamino/80">
           {t('contact.message')}
         </label>
         <textarea
@@ -82,7 +82,7 @@ const t = useTranslations(locale);
           name="message"
           rows="5"
           required
-          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-sm resize-none"
+          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-base resize-none leading-relaxed"
         ></textarea>
       </div>
 

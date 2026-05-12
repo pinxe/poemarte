@@ -1,4 +1,4 @@
----
+﻿---
 import { useTranslations } from '../../i18n';
 import type { Locale } from '../../i18n';
 
@@ -39,7 +39,7 @@ const tips = [
         <p class="font-serif italic text-ceniza text-lg leading-relaxed">
           {t('presentation.body1')}
         </p>
-        <p class="font-sans text-sm text-ceniza/70 leading-relaxed font-light">
+        <p class="font-sans text-base text-pergamino/80 leading-relaxed">
           Cada obra contiene una emocion, un ritmo o una historia que se revela
           cuando nos detenemos a contemplarla con atencion. La poesia permite
           acercarse a ese territorio invisible.
@@ -72,7 +72,7 @@ const tips = [
         <div class="tip-card bg-noche p-10 flex flex-col gap-4 opacity-0">
           <span class="font-serif text-5xl text-oro/20 leading-none">0{i + 1}</span>
           <h3 class="font-serif text-pergamino text-xl leading-tight">{tip.title}</h3>
-          <p class="font-sans text-ceniza/70 text-sm leading-relaxed font-light">{tip.body}</p>
+          <p class="font-sans text-pergamino/85 text-base leading-relaxed">{tip.body}</p>
         </div>
       ))}
     </div>
