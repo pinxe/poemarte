@@ -15,11 +15,11 @@ interface Props {
 const { eyebrow, title, tagline, email, orLabel, formspreeId, nameLabel, emailLabel, messageLabel, sendLabel } = Astro.props;
 ---
 
-<section class="min-h-screen flex items-center py-section px-6 md:px-16 bg-noche relative overflow-hidden">
+<section class="min-h-[100svh] flex items-center py-section px-6 md:px-16 bg-noche relative overflow-hidden">
 
   <span class="absolute right-0 bottom-0 font-serif text-[20rem] md:text-[40rem] leading-none text-pergamino/[0.02] select-none pointer-events-none">.</span>
 
-  <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-12 md:gap-32 items-center relative z-10">
+  <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-14 md:gap-32 items-start md:items-center relative z-10">
 
     <div class="contact-text flex flex-col gap-8 opacity-0">
       <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro">{eyebrow}</p>
@@ -40,19 +40,19 @@ const { eyebrow, title, tagline, email, orLabel, formspreeId, nameLabel, emailLa
       method="POST"
     >
 
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-3">
         <label for="name" class="font-sans text-[10px] tracking-[0.3em] uppercase text-pergamino/80">{nameLabel}</label>
         <input id="name" name="name" type="text" required
           class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-base" />
       </div>
 
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-3">
         <label for="email" class="font-sans text-[10px] tracking-[0.3em] uppercase text-pergamino/80">{emailLabel}</label>
         <input id="email" name="email" type="email" required
           class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-base" />
       </div>
 
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-3">
         <label for="message" class="font-sans text-[10px] tracking-[0.3em] uppercase text-pergamino/80">{messageLabel}</label>
         <textarea id="message" name="message" rows="5" required
           class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-base resize-none leading-relaxed"></textarea>

@@ -19,7 +19,7 @@ interface Props {
 const { locale, eyebrow, tagline, viewLabel, items } = Astro.props;
 ---
 
-<section id="colaboraciones" class="py-section px-8 md:px-16 bg-hueso overflow-hidden">
+<section id="colaboraciones" class="py-section px-6 md:px-16 bg-hueso overflow-hidden">
   <div class="max-w-7xl mx-auto">
 
     <div class="text-center mb-16 reveal-up">
@@ -35,6 +35,8 @@ const { locale, eyebrow, tagline, viewLabel, items } = Astro.props;
               <img
                 src={colab.imagenPrincipal}
                 alt={colab.titulo}
+                loading="lazy"
+                decoding="async"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
             </div>

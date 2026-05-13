@@ -15,7 +15,7 @@ interface Props {
 const { title, intro, fases } = Astro.props;
 ---
 
-<section class="py-section px-8 md:px-16 bg-hueso">
+<section class="py-section px-6 md:px-16 bg-hueso">
   <div class="max-w-7xl mx-auto">
 
     <div class="proceso-header text-center mb-16 md:mb-20">
@@ -29,7 +29,7 @@ const { title, intro, fases } = Astro.props;
         <div class="fase-row grid md:grid-cols-2 gap-0">
 
           <div class={`relative overflow-hidden aspect-[4/3] ${i % 2 === 1 ? 'md:order-2' : ''}`}>
-            <img src={fase.image} alt={fase.title} class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+            <img src={fase.image} alt={fase.title} loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             <span class="absolute top-6 left-6 font-serif text-7xl md:text-8xl text-hueso/20 leading-none pointer-events-none select-none">
               {String(i + 1).padStart(2, '0')}
             </span>

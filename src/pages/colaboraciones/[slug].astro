@@ -35,10 +35,10 @@ const poemaLines = entry.poema?.split('\n') ?? [];
 <Layout locale={locale} title={entry.titulo} currentPath={`colaboraciones/${slug}`}>
 
   <!-- HERO -->
-  <section class="relative min-h-[85vh] md:min-h-screen flex flex-col justify-end overflow-hidden">
+  <section class="relative min-h-[85vh] md:min-h-[100svh] flex flex-col justify-end overflow-hidden">
     <div class="absolute inset-0 z-0">
       <div class="absolute inset-0 bg-gradient-to-t from-noche via-noche/70 to-noche/40 z-10"></div>
-      <img src={entry.imagenPrincipal ?? ''} alt={entry.titulo} class="w-full h-full object-cover" />
+      <img src={entry.imagenPrincipal ?? ''} alt={entry.titulo} loading="eager" fetchpriority="high" decoding="async" class="w-full h-full object-cover" />
     </div>
 
     <div class="relative z-20 px-6 md:px-16 pb-16 md:pb-24 max-w-5xl">
@@ -82,7 +82,7 @@ const poemaLines = entry.poema?.split('\n') ?? [];
         {entry.imagenSecundaria && (
           <div class="reveal-poem-img order-2 md:order-1">
             <div class="aspect-[4/5] overflow-hidden">
-              <img src={entry.imagenSecundaria} alt={entry.titulo} class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+              <img src={entry.imagenSecundaria} alt={entry.titulo} loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
           </div>
         )}
@@ -118,7 +118,7 @@ const poemaLines = entry.poema?.split('\n') ?? [];
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {entry.galeria.map(g => (
             <div class="reveal-gal aspect-[4/5] overflow-hidden">
-              <img src={g.imagen ?? ''} alt={g.alt} class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+              <img src={g.imagen ?? ''} alt={g.alt} loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
             </div>
           ))}
         </div>
