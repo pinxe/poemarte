@@ -1,7 +1,16 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
 
+// En desarrollo (npm run dev) usamos almacenamiento local: los cambios se
+// guardan directamente en los archivos del repo y se ven en hot-reload.
+// En producción usamos GitHub: el CMS web hace commits al repo, Vercel
+// detecta el push y redespliega. Esto permite a la editora trabajar desde
+// /keystatic en el sitio publicado sin pasar por código.
+const isDev = process.env.NODE_ENV !== 'production';
+
 export default config({
-  storage: { kind: 'local' },
+  storage: isDev
+    ? { kind: 'local' }
+    : { kind: 'github', repo: 'pinxe/poemarte' },
 
   ui: {
     brand: { name: 'Poemarte CMS' },
