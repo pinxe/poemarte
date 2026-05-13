@@ -1,17 +1,25 @@
-heroTitle: POEMARTE
+heroTitle: POEMARTEs
 heroSubtitle: Banda Sonora de Palabras
-heroTagline: El arte se escucha en silencio, hasta que las palabras componen su banda sonora
-heroImage: /images/cms/home-hero.jpg
-
+heroTagline: >-
+  El arte se escucha en silencio, hasta que las palabras componen su banda
+  sonora
+heroImage: /images/cms/heroImage.jpg
 presentationEyebrow: Poemarte
 presentationConcept: El arte también se escucha
-presentationQuote: El arte se escucha en silencio, hasta que las palabras componen su banda sonora
-presentationBody1: Poemarte nace del deseo de acompañar la creación artística con la fuerza de la palabra. Cada poema es un eco, una caricia que traduce lo que la obra sugiere. Una banda sonora de palabras que invita a sentir el arte con todos los sentidos.
-presentationBody2: Poemarte es una invitación a mirar con el alma y escuchar con el corazón. A descubrir que cada obra guarda un latido, una respiración propia, que las palabras pueden despertar.
+presentationQuote: >-
+  El arte se escucha en silencio, hasta que las palabras componen su banda
+  sonora
+presentationBody1: >-
+  Poemarte nace del deseo de acompañar la creación artística con la fuerza de la
+  palabra. Cada poema es un eco, una caricia que traduce lo que la obra sugiere.
+  Una banda sonora de palabras que invita a sentir el arte con todos los
+  sentidos.
+presentationBody2: >-
+  Poemarte es una invitación a mirar con el alma y escuchar con el corazón. A
+  descubrir que cada obra guarda un latido, una respiración propia, que las
+  palabras pueden despertar.
 presentationBody3: Cada obra guarda una historia que merece ser contada.
-presentationImage: /images/cms/home-presentacion.jpg
-
+presentationImage: /images/cms/presentationImage.jpg
 servicesHeading: Lo que hacemos
-
 collabsTitle: Colaboraciones recientes
 collabsTagline: Cada colaboración es un diálogo entre arte y palabra
