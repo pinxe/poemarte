@@ -1,83 +1,45 @@
-﻿---
-import { useTranslations } from '../../i18n';
-import type { Locale } from '../../i18n';
+---
+interface Fase {
+  title: string;
+  sub: string;
+  body: string;
+  image: string;
+}
 
-interface Props { locale: Locale; }
-const { locale } = Astro.props;
-const t = useTranslations(locale);
+interface Props {
+  title: string;
+  intro: string;
+  fases: Fase[];
+}
 
-const fases = [
-  {
-    num:   '01',
-    title: 'process.phase1_title',
-    sub:   'process.phase1_sub',
-    img:   '/images/proceso-fase1.jpg',
-    body:  'Todo comienza con un encuentro con la obra. Antes de escribir, es necesario detenerse y observar. Comprender el universo creativo del artista, la intencion de la pieza, su materialidad y la emocion que transmite. Este primer momento es un ejercicio de escucha. La obra marca el ritmo y abre el espacio donde el poema podra nacer.',
-  },
-  {
-    num:   '02',
-    title: 'process.phase2_title',
-    sub:   'process.phase2_sub',
-    img:   '/images/proceso-fase2.jpg',
-    body:  'A partir de esa experiencia se escribe un poema original inspirado en la obra. El texto se trabaja con cuidado para que dialogue con ella sin explicarla ni limitar su interpretacion. El poema no busca explicar la pieza: su intencion es acompanarla, dialogar con ella y abrir nuevas resonancias para quien la contempla.',
-  },
-  {
-    num:   '03',
-    title: 'process.phase3_title',
-    sub:   'process.phase3_sub',
-    img:   '/images/proceso-fase3.jpg',
-    body:  'El ultimo paso es decidir como el poema acompanara a la obra. El texto puede presentarse de diferentes formas segun el proyecto: como parte de una exposicion, integrado en una pieza artesanal, en formato editorial o como experiencia para el publico. El objetivo es que el poema amplie la experiencia del arte.',
-  },
-];
+const { title, intro, fases } = Astro.props;
 ---
 
 <section class="py-section px-8 md:px-16 bg-hueso">
   <div class="max-w-7xl mx-auto">
 
-    <!-- Cabecera -->
-    <div class="proceso-header text-center mb-20 opacity-0">
-      <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro mb-6">
-        {t('about.process_title')}
-      </p>
-      <h2 class="font-serif text-[clamp(2rem,5vw,4rem)] leading-tight text-noche max-w-2xl mx-auto">
-        {t('about.process_title')}
-      </h2>
-      <p class="font-serif italic text-noche/70 mt-6 max-w-xl mx-auto leading-relaxed">
-        Cada poema comienza con una mirada. Observar una obra es detener el tiempo,
-        permitir que los sentidos se abran y que el silencio hable.
-      </p>
+    <div class="proceso-header text-center mb-16 md:mb-20">
+      <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro mb-6">{title}</p>
+      <h2 class="font-serif text-[clamp(2rem,5vw,4rem)] leading-tight text-noche max-w-2xl mx-auto">{title}</h2>
+      <p class="font-serif italic text-noche/70 mt-6 max-w-xl mx-auto leading-relaxed">{intro}</p>
     </div>
 
-    <!-- Fases: alternando imagen izquierda/derecha -->
     <div class="flex flex-col gap-0">
       {fases.map((fase, i) => (
-        <div class={`fase-row grid md:grid-cols-2 gap-0 opacity-0 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+        <div class="fase-row grid md:grid-cols-2 gap-0">
 
-          <!-- Imagen -->
           <div class={`relative overflow-hidden aspect-[4/3] ${i % 2 === 1 ? 'md:order-2' : ''}`}>
-            <img
-              src={fase.img}
-              alt={t(fase.title)}
-              class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-            />
-            <!-- Numero grande encima de la imagen -->
-            <span class="absolute top-6 left-6 font-serif text-8xl text-hueso/20 leading-none pointer-events-none select-none">
-              {fase.num}
+            <img src={fase.image} alt={fase.title} class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+            <span class="absolute top-6 left-6 font-serif text-7xl md:text-8xl text-hueso/20 leading-none pointer-events-none select-none">
+              {String(i + 1).padStart(2, '0')}
             </span>
           </div>
 
-          <!-- Texto -->
-          <div class={`bg-noche flex flex-col justify-center p-12 md:p-16 gap-6 ${i % 2 === 1 ? 'md:order-1' : ''}`}>
+          <div class={`bg-noche flex flex-col justify-center p-10 md:p-16 gap-6 ${i % 2 === 1 ? 'md:order-1' : ''}`}>
             <div class="w-8 h-px bg-oro"></div>
-            <h3 class="font-serif text-[clamp(1.5rem,3vw,2.5rem)] text-pergamino leading-tight">
-              {t(fase.title)}
-            </h3>
-            <p class="font-serif italic text-oro/80 text-base leading-relaxed">
-              {t(fase.sub)}
-            </p>
-            <p class="font-sans text-pergamino/85 text-base leading-relaxed">
-              {fase.body}
-            </p>
+            <h3 class="font-serif text-[clamp(1.5rem,3vw,2.5rem)] text-pergamino leading-tight">{fase.title}</h3>
+            <p class="font-serif italic text-oro/80 text-base leading-relaxed">{fase.sub}</p>
+            <p class="font-sans text-pergamino/85 text-base leading-relaxed">{fase.body}</p>
           </div>
 
         </div>
@@ -92,18 +54,16 @@ const fases = [
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.to('.proceso-header', {
-    scrollTrigger: { trigger: '.proceso-header', start: 'top 80%' },
-    opacity: 1, y: 0, duration: 1, ease: 'power3.out',
-  });
-  gsap.from('.proceso-header', { y: 40 });
+  gsap.fromTo('.proceso-header',
+    { y: 40, opacity: 0 },
+    { scrollTrigger: { trigger: '.proceso-header', start: 'top 90%' }, y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+  );
 
   document.querySelectorAll('.fase-row').forEach((el) => {
-    gsap.to(el, {
-      scrollTrigger: { trigger: el, start: 'top 80%' },
-      opacity: 1, y: 0, duration: 1, ease: 'power3.out',
-    });
-    gsap.from(el, { y: 60 });
+    gsap.fromTo(el,
+      { y: 60, opacity: 0 },
+      { scrollTrigger: { trigger: el, start: 'top 90%' }, y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+    );
   });
 </script>
 

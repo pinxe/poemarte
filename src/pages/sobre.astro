@@ -6,17 +6,54 @@ import NuestraPassion from '../components/sobre/NuestrapasionAstro.astro';
 import ProcesoCreativo from '../components/sobre/ProcesoCreativo.astro';
 import Objetivo from '../components/sobre/Objetivo.astro';
 import GuiaPrecios from '../components/sobre/GuiaPrecios.astro';
-import { useTranslations } from '../i18n';
+import { getSobre } from '../lib/content';
 
 const locale = 'es';
-const t = useTranslations(locale);
+const sobre = await getSobre();
 ---
 
-<Layout locale={locale} title={t('about.title')} currentPath="sobre">
-  <SobreHero locale={locale} />
-  <QueHacemos locale={locale} />
-  <NuestraPassion locale={locale} />
-  <ProcesoCreativo locale={locale} />
-  <Objetivo locale={locale} />
-  <GuiaPrecios locale={locale} />
+<Layout locale={locale} title={sobre.heroTitle} currentPath="sobre">
+  <SobreHero
+    eyebrow={sobre.heroEyebrow}
+    title={sobre.heroTitle}
+    image={sobre.heroImage ?? '/images/cms/sobre-hero.jpg'}
+  />
+  <QueHacemos
+    title={sobre.whatTitle}
+    quote={sobre.whatQuote}
+    body={sobre.whatBody}
+    image={sobre.whatImage ?? '/images/cms/sobre-que-hacemos.jpg'}
+  />
+  <NuestraPassion
+    title={sobre.passionTitle}
+    introQuote={sobre.passionIntroQuote}
+    introBody={sobre.passionIntroBody}
+    banner={sobre.passionBanner ?? '/images/cms/sobre-pasion.jpg'}
+    bannerQuote={sobre.passionBannerQuote}
+    tips={[...sobre.passionTips]}
+  />
+  <ProcesoCreativo
+    title={sobre.processTitle}
+    intro={sobre.processIntro}
+    fases={sobre.processFases.map(f => ({
+      title: f.title,
+      sub: f.sub,
+      body: f.body,
+      image: f.image ?? '',
+    }))}
+  />
+  <Objetivo
+    title={sobre.goalTitle}
+    quote={sobre.goalQuote}
+    body={sobre.goalBody}
+    image={sobre.goalImage ?? '/images/cms/sobre-objetivo.jpg'}
+  />
+  <GuiaPrecios
+    locale={locale}
+    title={sobre.pricesTitle}
+    intro={sobre.pricesIntro}
+    opts={sobre.pricesOpts.map(o => ({ title: o.title, desc: o.desc, items: [...o.items] }))}
+    ctaText={sobre.pricesCtaText}
+    ctaLabel={sobre.pricesCtaLabel}
+  />
 </Layout>

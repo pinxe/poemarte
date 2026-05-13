@@ -1,62 +1,41 @@
-﻿---
-import { useTranslations, getLocalePath } from '../../i18n';
+---
+import { getLocalePath } from '../../i18n';
 import type { Locale } from '../../i18n';
 
-interface Props { locale: Locale; }
-const { locale } = Astro.props;
-const t = useTranslations(locale);
+interface Opt { title: string; desc: string; items: string[]; }
 
-const opciones = [
-  {
-    num:    '01',
-    titulo: 'Poema individual',
-    desc:   'Un poema creado a partir de una obra concreta. Ideal para artistas que desean acompanar una pieza singular con su propia voz poetica.',
-    items:  ['Contemplacion y escucha de la obra', 'Creacion del poema original', 'Entrega en formato digital'],
-  },
-  {
-    num:    '02',
-    titulo: 'Coleccion o exposicion',
-    desc:   'Acompanamiento poetico para un conjunto de obras. Perfecto para exposiciones, colecciones artesanales o proyectos editoriales.',
-    items:  ['Todo lo del plan individual', 'Poema por cada pieza o grupo', 'Textos de sala opcionales', 'Coherencia de tono y voz'],
-  },
-  {
-    num:    '03',
-    titulo: 'Proyecto a medida',
-    desc:   'Para proyectos culturales, instituciones o colaboraciones de largo recorrido. Diseñado desde cero segun las necesidades.',
-    items:  ['Todo lo del plan coleccion', 'Experiencias poeticas para el publico', 'Formato editorial o expositivo', 'Acompanamiento continuo'],
-  },
-];
+interface Props {
+  locale: Locale;
+  title: string;
+  intro: string;
+  opts: Opt[];
+  ctaText: string;
+  ctaLabel: string;
+}
+
+const { locale, title, intro, opts, ctaText, ctaLabel } = Astro.props;
 ---
 
 <section class="py-section px-8 md:px-16 bg-hueso">
   <div class="max-w-7xl mx-auto">
 
-    <!-- Cabecera -->
-    <div class="precios-header text-center mb-20 opacity-0">
-      <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro mb-6">
-        {t('about.price_title')}
-      </p>
-      <h2 class="font-serif text-[clamp(2rem,5vw,4rem)] leading-tight text-noche">
-        {t('about.price_title')}
-      </h2>
-      <p class="font-sans text-base text-noche/75 mt-6 max-w-lg mx-auto leading-relaxed">
-        Cada proyecto de Poemarte es unico, porque cada obra tambien lo es.
-        Las colaboraciones se disenan de forma personalizada.
-      </p>
+    <div class="precios-header text-center mb-16 md:mb-20">
+      <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro mb-6">{title}</p>
+      <h2 class="font-serif text-[clamp(2rem,5vw,4rem)] leading-tight text-noche">{title}</h2>
+      <p class="font-sans text-base text-noche/75 mt-6 max-w-lg mx-auto leading-relaxed">{intro}</p>
     </div>
 
-    <!-- Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-      {opciones.map((op, i) => (
-        <div class="precio-card bg-noche flex flex-col gap-6 p-10 opacity-0 group hover:border-oro/30 border border-pergamino/5 transition-colors duration-300">
-          <span class="font-serif text-5xl text-oro/20 leading-none">{op.num}</span>
-          <h3 class="font-serif text-pergamino text-xl">{op.titulo}</h3>
+      {opts.map((op, i) => (
+        <div class="precio-card bg-noche flex flex-col gap-6 p-8 md:p-10 group hover:border-oro/30 border border-pergamino/5 transition-colors duration-300">
+          <span class="font-serif text-5xl text-oro/20 leading-none">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="font-serif text-pergamino text-xl">{op.title}</h3>
           <p class="font-sans text-pergamino/85 text-base leading-relaxed flex-1">{op.desc}</p>
           <ul class="flex flex-col gap-2 border-t border-pergamino/10 pt-6">
             {op.items.map(item => (
               <li class="flex items-start gap-3 font-sans text-sm text-pergamino/75">
                 <span class="text-oro mt-0.5 flex-shrink-0">—</span>
-                {item}
+                <span>{item}</span>
               </li>
             ))}
           </ul>
@@ -64,17 +43,13 @@ const opciones = [
       ))}
     </div>
 
-    <!-- CTA contacto -->
-    <div class="text-center opacity-0 precios-cta">
-      <p class="font-serif italic text-noche/75 mb-6">
-        Tras una primera conversacion para conocer el proyecto, se propone una
-        colaboracion adaptada a tus necesidades.
-      </p>
+    <div class="text-center precios-cta">
+      <p class="font-serif italic text-noche/75 mb-6 max-w-xl mx-auto">{ctaText}</p>
       <a
         href={getLocalePath(locale, 'contacto')}
         class="inline-flex items-center gap-4 font-sans text-xs tracking-[0.3em] uppercase text-noche hover:text-oro transition-colors duration-300 group"
       >
-        <span>Hablemos de tu proyecto</span>
+        <span>{ctaLabel}</span>
         <span class="block w-8 h-px bg-noche group-hover:bg-oro group-hover:w-12 transition-all duration-300"></span>
       </a>
     </div>
@@ -87,22 +62,18 @@ const opciones = [
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.to('.precios-header', {
-    scrollTrigger: { trigger: '.precios-header', start: 'top 80%' },
-    opacity: 1, y: 0, duration: 1, ease: 'power3.out',
-  });
-  gsap.from('.precios-header', { y: 40 });
-
-  gsap.to('.precio-card', {
-    scrollTrigger: { trigger: '.precio-card', start: 'top 85%' },
-    opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
-  });
-  gsap.from('.precio-card', { y: 40 });
-
-  gsap.to('.precios-cta', {
-    scrollTrigger: { trigger: '.precios-cta', start: 'top 90%' },
-    opacity: 1, duration: 0.8, ease: 'power2.out',
-  });
+  gsap.fromTo('.precios-header',
+    { y: 40, opacity: 0 },
+    { scrollTrigger: { trigger: '.precios-header', start: 'top 90%' }, y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+  );
+  gsap.fromTo('.precio-card',
+    { y: 40, opacity: 0 },
+    { scrollTrigger: { trigger: '.precio-card', start: 'top 92%' }, y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out' }
+  );
+  gsap.fromTo('.precios-cta',
+    { opacity: 0 },
+    { scrollTrigger: { trigger: '.precios-cta', start: 'top 95%' }, opacity: 1, duration: 0.8, ease: 'power2.out' }
+  );
 </script>
 
 <style>

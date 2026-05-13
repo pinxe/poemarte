@@ -1,0 +1,194 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { useTranslations, getLocalePath } from '../../i18n';
+import { getColaboraciones, reader } from '../../lib/content';
+import { renderMarkdoc } from '../../lib/markdoc';
+
+export async function getStaticPaths() {
+  const items = await getColaboraciones();
+  return items.map((entry, idx) => {
+    const next = items[(idx + 1) % items.length];
+    return {
+      params: { slug: entry.slug },
+      props: { slug: entry.slug, nextSlug: next.slug, nextTitulo: next.titulo },
+    };
+  });
+}
+
+const { slug, nextSlug, nextTitulo } = Astro.props;
+const locale = 'es';
+const t = useTranslations(locale);
+
+const entry = await reader.collections.colaboraciones.read(slug);
+if (!entry) throw new Error(`Colaboración no encontrada: ${slug}`);
+
+const aboutNode = (await entry.about()).node;
+const aboutHtml = renderMarkdoc(aboutNode as any);
+
+const fecha = entry.fecha
+  ? new Date(entry.fecha).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' })
+  : null;
+
+const poemaLines = entry.poema?.split('\n') ?? [];
+---
+
+<Layout locale={locale} title={entry.titulo} currentPath={`colaboraciones/${slug}`}>
+
+  <!-- HERO -->
+  <section class="relative min-h-[85vh] md:min-h-screen flex flex-col justify-end overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-t from-noche via-noche/70 to-noche/40 z-10"></div>
+      <img src={entry.imagenPrincipal ?? ''} alt={entry.titulo} class="w-full h-full object-cover" />
+    </div>
+
+    <div class="relative z-20 px-6 md:px-16 pb-16 md:pb-24 max-w-5xl">
+      <p class="hero-line font-sans text-[10px] tracking-[0.5em] uppercase text-oro mb-5 md:mb-6 opacity-0">
+        {entry.eyebrow}{fecha ? ` · ${fecha}` : ''}
+      </p>
+      <h1 class="hero-line font-serif text-[clamp(2.25rem,8vw,6rem)] leading-[1.05] text-pergamino opacity-0">
+        {entry.titulo}
+      </h1>
+      {entry.subtitulo && (
+        <p class="hero-line font-serif italic text-ceniza text-lg md:text-2xl mt-5 md:mt-6 max-w-2xl opacity-0">
+          {entry.subtitulo}
+        </p>
+      )}
+      {entry.artista && (
+        <p class="hero-line font-sans text-xs tracking-[0.3em] uppercase text-pergamino/60 mt-6 md:mt-8 opacity-0">
+          {entry.artista}
+        </p>
+      )}
+    </div>
+  </section>
+
+  <!-- Volver -->
+  <div class="bg-hueso px-6 md:px-16 pt-10 md:pt-12">
+    <div class="max-w-7xl mx-auto">
+      <a
+        href={getLocalePath(locale, 'colaboraciones')}
+        class="inline-flex items-center gap-3 font-sans text-xs tracking-[0.25em] uppercase text-noche/60 hover:text-oro transition-colors duration-300 group"
+      >
+        <span class="block w-6 h-px bg-current group-hover:w-10 transition-all duration-300"></span>
+        <span>{t('ui.back_to_collabs')}</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- POEMA + IMAGEN SECUNDARIA -->
+  {(entry.poema || entry.imagenSecundaria) && (
+    <section class="bg-hueso py-section px-6 md:px-16">
+      <div class={`max-w-7xl mx-auto grid ${entry.imagenSecundaria ? 'md:grid-cols-2' : 'md:grid-cols-1'} gap-12 md:gap-24 items-center`}>
+
+        {entry.imagenSecundaria && (
+          <div class="reveal-poem-img order-2 md:order-1">
+            <div class="aspect-[4/5] overflow-hidden">
+              <img src={entry.imagenSecundaria} alt={entry.titulo} class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+            </div>
+          </div>
+        )}
+
+        {entry.poema && (
+          <div class={`reveal-poem flex flex-col gap-8 order-1 ${entry.imagenSecundaria ? 'md:order-2' : 'md:max-w-2xl md:mx-auto md:text-center'}`}>
+            <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro">{t('ui.the_poem')}</p>
+            <div class="w-12 h-px bg-oro"></div>
+            <div class="font-serif italic text-noche text-xl md:text-2xl leading-[1.8]">
+              {poemaLines.map(line => (
+                <div>{line || ' '}</div>
+              ))}
+            </div>
+          </div>
+        )}
+
+      </div>
+    </section>
+  )}
+
+  <!-- SOBRE LA COLABORACIÓN -->
+  <section class="bg-noche py-section px-6 md:px-16">
+    <div class="max-w-3xl mx-auto reveal-about">
+      <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro mb-8">{t('ui.about_collab')}</p>
+      <div class="prose-poemarte font-sans text-base md:text-lg text-pergamino/85 leading-relaxed" set:html={aboutHtml}></div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  {entry.galeria && entry.galeria.length > 0 && (
+    <section class="bg-hueso py-section px-6 md:px-16">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {entry.galeria.map(g => (
+            <div class="reveal-gal aspect-[4/5] overflow-hidden">
+              <img src={g.imagen ?? ''} alt={g.alt} class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- SIGUIENTE -->
+  <section class="bg-noche border-t border-pergamino/10 px-6 md:px-16 py-16 md:py-20">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+      <p class="font-sans text-[10px] tracking-[0.4em] uppercase text-pergamino/55">{t('ui.next_collab')}</p>
+      <a
+        href={getLocalePath(locale, `colaboraciones/${nextSlug}`)}
+        class="font-serif italic text-pergamino text-2xl md:text-3xl hover:text-oro transition-colors duration-300 inline-flex items-center gap-4 group"
+      >
+        <span>{nextTitulo}</span>
+        <span class="block w-8 h-px bg-pergamino/40 group-hover:bg-oro group-hover:w-14 transition-all duration-300"></span>
+      </a>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero: cascada
+  gsap.timeline({ delay: 0.3 })
+    .fromTo('.hero-line', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.18, ease: 'power3.out' });
+
+  // Poema + imagen
+  gsap.fromTo('.reveal-poem',
+    { y: 30, opacity: 0 },
+    { scrollTrigger: { trigger: '.reveal-poem', start: 'top 90%' }, y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+  );
+  gsap.fromTo('.reveal-poem-img',
+    { y: 40, opacity: 0 },
+    { scrollTrigger: { trigger: '.reveal-poem-img', start: 'top 90%' }, y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+  );
+
+  // About
+  gsap.fromTo('.reveal-about',
+    { y: 30, opacity: 0 },
+    { scrollTrigger: { trigger: '.reveal-about', start: 'top 90%' }, y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+  );
+
+  // Galería
+  gsap.fromTo('.reveal-gal',
+    { y: 40, opacity: 0 },
+    { scrollTrigger: { trigger: '.reveal-gal', start: 'top 92%' }, y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out' }
+  );
+</script>
+
+<style>
+  .bg-noche       { background-color: var(--color-noche); }
+  .bg-hueso       { background-color: var(--color-hueso); }
+  .text-noche     { color: var(--color-noche); }
+  .text-pergamino { color: var(--color-pergamino); }
+  .text-ceniza    { color: var(--color-ceniza); }
+  .text-oro       { color: var(--color-oro); }
+  .bg-oro         { background-color: var(--color-oro); }
+  .font-serif     { font-family: var(--font-serif); }
+  .font-sans      { font-family: var(--font-sans); }
+  .py-section     { padding-top: var(--spacing-section); padding-bottom: var(--spacing-section); }
+
+  .prose-poemarte :global(p) { margin: 0; }
+  .prose-poemarte :global(p + p) { margin-top: 1.25rem; }
+  .prose-poemarte :global(em) { color: var(--color-oro); font-style: italic; }
+  .prose-poemarte :global(strong) { color: var(--color-pergamino); font-weight: 600; }
+  .prose-poemarte :global(a) { color: var(--color-oro); text-decoration: underline; text-underline-offset: 4px; }
+</style>

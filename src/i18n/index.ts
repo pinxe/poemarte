@@ -1,27 +1,18 @@
 import es from './es.json';
-import ca from './ca.json';
-import en from './en.json';
 
-export type Locale = 'es' | 'ca' | 'en';
+export type Locale = 'es';
 
-const translations = { es, ca, en };
+const translations = { es };
 
-export function getTranslations(locale: Locale) {
-  return translations[locale] ?? translations['es'];
-}
-
-export function useTranslations(locale: Locale) {
-  const t = translations[locale] ?? translations['es'];
-
+export function useTranslations(_locale: Locale = 'es') {
   return function get(key: string): string {
-    return key.split('.').reduce((obj: any, k) => obj?.[k], t) ?? key;
+    return key.split('.').reduce((obj: any, k) => obj?.[k], translations.es) ?? key;
   };
 }
 
-export const locales: Locale[] = ['es', 'ca', 'en'];
+export const locales: Locale[] = ['es'];
 export const defaultLocale: Locale = 'es';
 
-export function getLocalePath(locale: Locale, path: string = '') {
-  if (locale === defaultLocale) return `/${path}`;
-  return `/${locale}/${path}`;
+export function getLocalePath(_locale: Locale, path: string = '') {
+  return `/${path}`;
 }

@@ -1,5 +1,5 @@
-﻿---
-import { useTranslations, getLocalePath, locales } from '../i18n';
+---
+import { useTranslations, getLocalePath } from '../i18n';
 import type { Locale } from '../i18n';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   currentPath?: string;
 }
 
-const { locale, currentPath = '' } = Astro.props;
+const { locale } = Astro.props;
 const t = useTranslations(locale);
 
 const navLinks = [
@@ -18,66 +18,38 @@ const navLinks = [
 ];
 ---
 
-<header
-  id="site-header"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out"
->
-  <nav class="flex items-center justify-between px-8 py-6 md:px-16 transition-all duration-500">
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out">
+  <nav class="flex items-center justify-between px-6 py-5 md:px-16 md:py-6 transition-all duration-500">
 
-    <!-- Logo -->
-    <a href={getLocalePath(locale)} class="font-serif text-xl tracking-widest text-pergamino uppercase">
+    <a href={getLocalePath(locale)} class="font-serif text-lg md:text-xl tracking-widest text-pergamino uppercase">
       Poemarte
     </a>
 
-    <!-- Links -->
     <ul class="hidden md:flex items-center gap-10">
       {navLinks.map(link => (
         <li>
-          <a
-            href={link.href}
-            class="font-sans text-xs tracking-[0.2em] uppercase text-pergamino/90 hover:text-oro transition-colors duration-300 font-medium"
-          >
+          <a href={link.href} class="font-sans text-xs tracking-[0.2em] uppercase text-pergamino/90 hover:text-oro transition-colors duration-300 font-medium">
             {t(link.key)}
           </a>
         </li>
       ))}
     </ul>
 
-    <!-- Selector de idioma -->
-    <div class="flex items-center gap-3">
-      {locales.map(loc => (
-        <a
-          href={getLocalePath(loc, currentPath)}
-          class={`text-xs tracking-widest uppercase transition-colors duration-300 ${
-            loc === locale
-              ? 'text-oro'
-              : 'text-pergamino/40 hover:text-pergamino/70'
-          }`}
-        >
-          {loc}
-        </a>
-      ))}
-    </div>
-
-    <!-- Hamburger (mobile) -->
     <button
       id="menu-toggle"
-      class="md:hidden flex flex-col gap-1.5 p-2"
-      aria-label="Menú"
+      class="md:hidden flex flex-col gap-1.5 p-3 -mr-3"
+      aria-label={t('ui.menu')}
+      aria-expanded="false"
     >
-      <span class="block w-6 h-px bg-pergamino transition-all duration-300"></span>
-      <span class="block w-4 h-px bg-pergamino transition-all duration-300"></span>
+      <span class="bar block w-6 h-px bg-pergamino transition-all duration-300"></span>
+      <span class="bar block w-4 h-px bg-pergamino transition-all duration-300"></span>
     </button>
 
   </nav>
 
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-noche flex flex-col items-center justify-center gap-10 z-40">
+  <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-noche flex-col items-center justify-center gap-10 z-40">
     {navLinks.map(link => (
-      <a
-        href={link.href}
-        class="font-serif text-3xl italic text-pergamino hover:text-oro transition-colors duration-300"
-      >
+      <a href={link.href} class="font-serif text-3xl italic text-pergamino hover:text-oro transition-colors duration-300">
         {t(link.key)}
       </a>
     ))}
@@ -87,12 +59,29 @@ const navLinks = [
 <script>
   const toggle = document.getElementById('menu-toggle');
   const menu = document.getElementById('mobile-menu');
+  const bars = toggle?.querySelectorAll('.bar');
+
   toggle?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
-    menu?.classList.toggle('flex');
+    const open = menu?.classList.toggle('hidden');
+    menu?.classList.toggle('flex', !open);
+    toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+    document.body.style.overflow = open ? '' : 'hidden';
+    if (bars && bars.length >= 2) {
+      (bars[0] as HTMLElement).style.width = open ? '1.5rem' : '1.5rem';
+      (bars[1] as HTMLElement).style.width = open ? '1rem' : '1.5rem';
+    }
   });
 
-  // Header con fondo al hacer scroll
+  // Cerrar al pulsar un link
+  menu?.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      menu.classList.remove('flex');
+      toggle?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
   const header = document.getElementById('site-header');
   const nav = header?.querySelector('nav');
 
@@ -118,14 +107,12 @@ const navLinks = [
   .font-serif     { font-family: var(--font-serif); }
   .font-sans      { font-family: var(--font-sans); }
 
-  /* Estado por defecto: transparente */
   #site-header {
     background-color: transparent;
     backdrop-filter: none;
     border-bottom: 1px solid transparent;
   }
 
-  /* Estado scrolled: fondo oscuro con blur */
   #site-header.is-scrolled {
     background-color: color-mix(in srgb, var(--color-noche) 85%, transparent);
     backdrop-filter: blur(12px);
@@ -133,9 +120,8 @@ const navLinks = [
     border-bottom: 1px solid color-mix(in srgb, var(--color-pergamino) 8%, transparent);
   }
 
-  /* Cuando scrolled, padding más compacto */
   nav.is-scrolled-nav {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
   }
 </style>

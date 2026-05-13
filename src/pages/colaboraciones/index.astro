@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Colaboraciones from '../../components/Colaboraciones.astro';
+import { useTranslations } from '../../i18n';
+import { getHome, getColaboraciones } from '../../lib/content';
+
+const locale = 'es';
+const t = useTranslations(locale);
+
+const home = await getHome();
+const colabs = await getColaboraciones();
+---
+
+<Layout locale={locale} title={home.collabsTitle} currentPath="colaboraciones">
+  <div class="pt-32 md:pt-40 bg-hueso">
+    <Colaboraciones
+      locale={locale}
+      eyebrow={home.collabsTitle}
+      tagline={home.collabsTagline}
+      viewLabel={t('ui.view_collab')}
+      items={colabs.map(c => ({
+        slug: c.slug,
+        titulo: c.titulo,
+        imagenPrincipal: c.imagenPrincipal ?? '',
+      }))}
+    />
+  </div>
+</Layout>

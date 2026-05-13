@@ -1,96 +1,66 @@
-﻿---
-import { useTranslations } from '../i18n';
-import type { Locale } from '../i18n';
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  tagline: string;
+  email: string;
+  orLabel: string;
+  formspreeId: string;
+  nameLabel: string;
+  emailLabel: string;
+  messageLabel: string;
+  sendLabel: string;
+}
 
-interface Props { locale: Locale; }
-const { locale } = Astro.props;
-const t = useTranslations(locale);
+const { eyebrow, title, tagline, email, orLabel, formspreeId, nameLabel, emailLabel, messageLabel, sendLabel } = Astro.props;
 ---
 
-<section class="min-h-screen flex items-center py-section px-8 md:px-16 bg-noche relative overflow-hidden">
+<section class="min-h-screen flex items-center py-section px-6 md:px-16 bg-noche relative overflow-hidden">
 
-  <!-- Decoración: gran letra de fondo -->
-  <span class="absolute right-0 bottom-0 font-serif text-[40rem] leading-none text-pergamino/[0.02] select-none pointer-events-none">
-    .
-  </span>
+  <span class="absolute right-0 bottom-0 font-serif text-[20rem] md:text-[40rem] leading-none text-pergamino/[0.02] select-none pointer-events-none">.</span>
 
-  <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-16 md:gap-32 items-center relative z-10">
+  <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-12 md:gap-32 items-center relative z-10">
 
-    <!-- Texto -->
     <div class="contact-text flex flex-col gap-8 opacity-0">
-      <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro">
-        {t('contact.eyebrow')}
-      </p>
-      <h1 class="font-serif text-[clamp(2.5rem,6vw,5rem)] leading-tight text-pergamino">
-        {t('contact.title')}
-      </h1>
-      <p class="font-serif italic text-ceniza text-lg leading-relaxed max-w-md">
-        {t('contact.tagline')}
-      </p>
+      <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro">{eyebrow}</p>
+      <h1 class="font-serif text-[clamp(2rem,8vw,5rem)] leading-tight text-pergamino">{title}</h1>
+      <p class="font-serif italic text-ceniza text-base md:text-lg leading-relaxed max-w-md">{tagline}</p>
 
-      <!-- Email directo -->
       <div class="border-t border-pergamino/10 pt-8 mt-4">
-        <p class="font-sans text-xs text-pergamino/75 mb-3">{t('contact.or')}</p>
-        <a
-          href="mailto:hola@poemarte.com"
-          class="font-serif italic text-oro text-xl hover:text-pergamino transition-colors duration-300"
-        >
-          hola@poemarte.com
+        <p class="font-sans text-xs text-pergamino/75 mb-3">{orLabel}</p>
+        <a href={`mailto:${email}`} class="font-serif italic text-oro text-lg md:text-xl break-words hover:text-pergamino transition-colors duration-300">
+          {email}
         </a>
       </div>
     </div>
 
-    <!-- Formulario -->
     <form
       class="contact-form flex flex-col gap-6 opacity-0"
-      action="https://formspree.io/f/REEMPLAZAR_ID"
+      action={`https://formspree.io/f/${formspreeId}`}
       method="POST"
     >
 
       <div class="flex flex-col gap-2">
-        <label for="name" class="font-sans text-[10px] tracking-[0.3em] uppercase text-pergamino/80">
-          {t('contact.name')}
-        </label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          required
-          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-base"
-        />
+        <label for="name" class="font-sans text-[10px] tracking-[0.3em] uppercase text-pergamino/80">{nameLabel}</label>
+        <input id="name" name="name" type="text" required
+          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-base" />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="email" class="font-sans text-[10px] tracking-[0.3em] uppercase text-pergamino/80">
-          {t('contact.email')}
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-base"
-        />
+        <label for="email" class="font-sans text-[10px] tracking-[0.3em] uppercase text-pergamino/80">{emailLabel}</label>
+        <input id="email" name="email" type="email" required
+          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-base" />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="message" class="font-sans text-[10px] tracking-[0.3em] uppercase text-pergamino/80">
-          {t('contact.message')}
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          rows="5"
-          required
-          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-base resize-none leading-relaxed"
-        ></textarea>
+        <label for="message" class="font-sans text-[10px] tracking-[0.3em] uppercase text-pergamino/80">{messageLabel}</label>
+        <textarea id="message" name="message" rows="5" required
+          class="bg-transparent border-b border-pergamino/20 py-3 text-pergamino focus:border-oro outline-none transition-colors duration-300 font-sans text-base resize-none leading-relaxed"></textarea>
       </div>
 
-      <button
-        type="submit"
-        class="self-start mt-6 flex items-center gap-4 font-sans text-xs tracking-[0.3em] uppercase text-pergamino hover:text-oro transition-colors duration-300 group"
-      >
-        <span>{t('contact.send')}</span>
+      <button type="submit"
+        class="self-start mt-6 flex items-center gap-4 font-sans text-xs tracking-[0.3em] uppercase text-pergamino hover:text-oro transition-colors duration-300 group">
+        <span>{sendLabel}</span>
         <span class="block w-8 h-px bg-pergamino group-hover:bg-oro group-hover:w-12 transition-all duration-300"></span>
       </button>
 
@@ -104,17 +74,14 @@ const t = useTranslations(locale);
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.to('.contact-text', {
-    scrollTrigger: { trigger: '.contact-text', start: 'top 80%' },
-    opacity: 1, y: 0, duration: 1, ease: 'power3.out',
-  });
-  gsap.from('.contact-text', { y: 30 });
-
-  gsap.to('.contact-form', {
-    scrollTrigger: { trigger: '.contact-form', start: 'top 80%' },
-    opacity: 1, y: 0, duration: 1, delay: 0.2, ease: 'power3.out',
-  });
-  gsap.from('.contact-form', { y: 30 });
+  gsap.fromTo('.contact-text',
+    { y: 30, opacity: 0 },
+    { scrollTrigger: { trigger: '.contact-text', start: 'top 90%' }, y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+  );
+  gsap.fromTo('.contact-form',
+    { y: 30, opacity: 0 },
+    { scrollTrigger: { trigger: '.contact-form', start: 'top 90%' }, y: 0, opacity: 1, duration: 1, delay: 0.2, ease: 'power3.out' }
+  );
 </script>
 
 <style>

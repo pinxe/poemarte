@@ -3,51 +3,27 @@ import Layout from '../layouts/Layout.astro';
 import ServiciosHero from '../components/servicios/ServiciosHero.astro';
 import ServicioDetalle from '../components/servicios/ServicioDetalle.astro';
 import { useTranslations } from '../i18n';
+import { getServicios } from '../lib/content';
 
 const locale = 'es';
 const t = useTranslations(locale);
-
-const servicios = [
-  {
-    num:      '01',
-    title:    t('services.exposiciones'),
-    subtitle: t('services.exposiciones_sub'),
-    body:     'Poemas creados desde la escucha de cada obra para acompañar exposiciones individuales o colectivas. Los textos pueden integrarse como cartelas, textos de sala, catálogos o experiencias inmersivas que amplían la mirada del visitante.',
-    image:    '/images/servicio-exposiciones-detalle.jpg',
-  },
-  {
-    num:      '02',
-    title:    t('services.artesanales'),
-    subtitle: t('services.artesanales_sub'),
-    body:     'Para artesanos y creadores de piezas únicas: un poema que acompaña la obra y la convierte en algo más que un objeto. Una historia, una emoción, un sello poético que dialoga con lo hecho a mano.',
-    image:    '/images/servicio-artesanales-detalle.jpg',
-  },
-  {
-    num:      '03',
-    title:    t('services.colaboraciones'),
-    subtitle: t('services.colaboraciones_sub'),
-    body:     'Colaboraciones a medida con artistas, galerías y proyectos culturales. Cada palabra nace del diálogo con la obra y respeta la identidad de quien la crea, abriendo una nueva dimensión narrativa.',
-    image:    '/images/servicio-colaboraciones-detalle.jpg',
-  },
-  {
-    num:      '04',
-    title:    t('services.merchandising'),
-    subtitle: t('services.merchandising_sub'),
-    body:     'Objetos donde la poesía se vuelve tangible: tarjetas, ediciones limitadas, piezas editoriales. El poema sale del marco para acompañar al público en su día a día.',
-    image:    '/images/servicio-merchandising-detalle.jpg',
-  },
-];
+const serv = await getServicios();
 ---
 
-<Layout locale={locale} title={t('services.title')} currentPath="servicios">
-  <ServiciosHero locale={locale} />
-  {servicios.map((s, i) => (
+<Layout locale={locale} title={serv.heroTitle} currentPath="servicios">
+  <ServiciosHero
+    eyebrow={t('nav.services')}
+    title={serv.heroTitle}
+    tagline={serv.heroTagline}
+    image={serv.heroImage ?? '/images/cms/servicios-hero.jpg'}
+  />
+  {serv.items.map((s, i) => (
     <ServicioDetalle
-      num={s.num}
+      num={String(i + 1).padStart(2, '0')}
       title={s.title}
       subtitle={s.subtitle}
       body={s.body}
-      image={s.image}
+      image={s.image ?? ''}
       reverse={i % 2 === 1}
     />
   ))}

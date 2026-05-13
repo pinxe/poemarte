@@ -1,52 +1,33 @@
-﻿---
-import { useTranslations } from '../../i18n';
-import type { Locale } from '../../i18n';
+---
+interface Props {
+  title: string;
+  quote: string;
+  body: string;
+  image: string;
+}
 
-interface Props { locale: Locale; }
-const { locale } = Astro.props;
-const t = useTranslations(locale);
+const { title, quote, body, image } = Astro.props;
+const paragraphs = body.split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
 ---
 
 <section class="py-section px-8 md:px-16 bg-noche">
   <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 md:gap-32 items-center">
 
-    <!-- Imagen -->
-    <div class="obj-img relative opacity-0">
+    <div class="obj-img relative order-2 md:order-1">
       <div class="aspect-[4/5] overflow-hidden">
-        <img
-          src="/images/sobre-objetivo.jpg"
-          alt="Nuestro objetivo"
-          class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-        />
+        <img src={image} alt={title} class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
       </div>
       <div class="absolute -bottom-6 -right-6 w-full h-full border border-oro/20 z-[-1]"></div>
     </div>
 
-    <!-- Texto -->
-    <div class="obj-text flex flex-col gap-8 opacity-0">
-      <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro">
-        {t('about.goal_title')}
-      </p>
-      <h2 class="font-serif text-[clamp(2rem,4vw,3.5rem)] leading-tight text-pergamino">
-        {t('about.goal_title')}
-      </h2>
-      <p class="font-serif italic text-ceniza text-lg border-l-2 border-oro pl-6 leading-relaxed">
-        {t('about.goal_sub')}
-      </p>
+    <div class="obj-text flex flex-col gap-8 order-1 md:order-2">
+      <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro">{title}</p>
+      <h2 class="font-serif text-[clamp(2rem,4vw,3.5rem)] leading-tight text-pergamino">{title}</h2>
+      <p class="font-serif italic text-ceniza text-lg border-l-2 border-oro pl-6 leading-relaxed">{quote}</p>
       <div class="flex flex-col gap-4">
-        <p class="font-sans text-base text-pergamino/80 leading-relaxed">
-          El objetivo de Poemarte es enriquecer la experiencia del arte. Un poema
-          puede abrir una puerta distinta a la obra: despertar emociones, sugerir
-          nuevas miradas o acompanar al espectador en su encuentro con ella.
-        </p>
-        <p class="font-sans text-base text-pergamino/80 leading-relaxed">
-          Para artistas y creadores, Poemarte ofrece una forma de ampliar el
-          relato de su obra y generar una conexion mas intima con su publico.
-        </p>
-        <p class="font-sans text-base text-pergamino/80 leading-relaxed">
-          Poemarte no sustituye al arte ni pretende explicarlo: lo escucha y lo
-          acompana para que su resonancia llegue mas lejos.
-        </p>
+        {paragraphs.map(p => (
+          <p class="font-sans text-base text-pergamino/80 leading-relaxed">{p}</p>
+        ))}
       </div>
     </div>
 
@@ -58,17 +39,14 @@ const t = useTranslations(locale);
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.to('.obj-img', {
-    scrollTrigger: { trigger: '.obj-img', start: 'top 80%' },
-    opacity: 1, x: 0, duration: 1, ease: 'power3.out',
-  });
-  gsap.from('.obj-img', { x: -50 });
-
-  gsap.to('.obj-text', {
-    scrollTrigger: { trigger: '.obj-text', start: 'top 80%' },
-    opacity: 1, x: 0, duration: 1, ease: 'power3.out',
-  });
-  gsap.from('.obj-text', { x: 50 });
+  gsap.fromTo('.obj-img',
+    { x: -50, opacity: 0 },
+    { scrollTrigger: { trigger: '.obj-img', start: 'top 90%' }, x: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+  );
+  gsap.fromTo('.obj-text',
+    { x: 50, opacity: 0 },
+    { scrollTrigger: { trigger: '.obj-text', start: 'top 90%' }, x: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+  );
 </script>
 
 <style>

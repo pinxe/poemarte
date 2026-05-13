@@ -2,11 +2,24 @@
 import Layout from '../layouts/Layout.astro';
 import Contacto from '../components/Contacto.astro';
 import { useTranslations } from '../i18n';
+import { getContacto } from '../lib/content';
 
 const locale = 'es';
 const t = useTranslations(locale);
+const c = await getContacto();
 ---
 
-<Layout locale={locale} title={t('nav.contact')} currentPath="contacto">
-  <Contacto locale={locale} />
+<Layout locale={locale} title={c.title} currentPath="contacto">
+  <Contacto
+    eyebrow={c.eyebrow}
+    title={c.title}
+    tagline={c.tagline}
+    email={c.email}
+    orLabel={c.orLabel}
+    formspreeId={c.formspreeId}
+    nameLabel={t('ui.form_name')}
+    emailLabel={t('ui.form_email')}
+    messageLabel={t('ui.form_message')}
+    sendLabel={t('ui.form_send')}
+  />
 </Layout>

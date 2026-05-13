@@ -1,45 +1,30 @@
-﻿---
+---
 import { useTranslations, getLocalePath } from '../i18n';
 import type { Locale } from '../i18n';
 
-interface Props {
-  locale: Locale;
-}
+interface Props { locale: Locale; }
 
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-pergamino/10 px-8 py-16 md:px-16">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+<footer class="border-t border-pergamino/10 px-6 py-12 md:px-16 md:py-16">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
 
-    <!-- Marca -->
-    <div class="text-center md:text-left">
+    <div>
       <p class="font-serif text-2xl text-pergamino tracking-widest uppercase">Poemarte</p>
-      <p class="font-serif italic text-ceniza text-sm mt-1">{t('footer.tagline')}</p>
+      <p class="font-serif italic text-ceniza text-sm mt-1">{t('ui.tagline')}</p>
     </div>
 
-    <!-- Nav secundaria -->
-    <nav class="flex flex-wrap justify-center gap-8">
-      <a href={getLocalePath(locale)} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">
-        {t('nav.home')}
-      </a>
-      <a href={getLocalePath(locale, 'sobre')} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">
-        {t('nav.about')}
-      </a>
-      <a href={getLocalePath(locale, 'servicios')} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">
-        {t('nav.services')}
-      </a>
-      <a href={getLocalePath(locale, 'contacto')} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">
-        {t('nav.contact')}
-      </a>
+    <nav class="flex flex-wrap justify-center gap-6 md:gap-8">
+      <a href={getLocalePath(locale)} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">{t('nav.home')}</a>
+      <a href={getLocalePath(locale, 'sobre')} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">{t('nav.about')}</a>
+      <a href={getLocalePath(locale, 'servicios')} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">{t('nav.services')}</a>
+      <a href={getLocalePath(locale, 'contacto')} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">{t('nav.contact')}</a>
     </nav>
 
-    <!-- Copyright -->
-    <p class="text-xs text-pergamino/65 tracking-widest">
-      © {year} Poemarte — {t('footer.rights')}
-    </p>
+    <p class="text-xs text-pergamino/65 tracking-widest">© {year} Poemarte — {t('ui.rights')}</p>
 
   </div>
 </footer>
