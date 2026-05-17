@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ServiciosHero from '../components/servicios/ServiciosHero.astro';
+import ServicioDetalle from '../components/servicios/ServicioDetalle.astro';
 import { useTranslations, getLocalePath } from '../i18n';
 import { getServicios, getServiciosItems } from '../lib/content';
 
@@ -17,44 +18,15 @@ const items = await getServiciosItems();
     tagline={serv.heroTagline}
     image={serv.heroImage ?? '/images/cms/servicios-hero.jpg'}
   />
-
-  <section class="bg-noche py-section px-6 md:px-16">
-    <div class="max-w-6xl mx-auto grid gap-px bg-pergamino/10">
-      {items.map((s, i) => (
-        <a
-          href={getLocalePath(locale, `servicios/${s.slug}`)}
-          class="servicio-list group relative grid md:grid-cols-[1fr_2fr] gap-8 md:gap-12 bg-noche p-8 md:p-12 hover:bg-pergamino/5 transition-colors duration-500 items-center"
-        >
-          <div class="aspect-[4/3] overflow-hidden bg-noche">
-            <img
-              src={s.imageList ?? s.image ?? ''}
-              alt={s.title}
-              loading="lazy"
-              decoding="async"
-              class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-            />
-          </div>
-          <div class="flex flex-col gap-4">
-            <span class="font-serif text-5xl text-oro/30 leading-none">{String(i + 1).padStart(2, '0')}</span>
-            <h2 class="font-serif text-3xl md:text-5xl text-pergamino uppercase tracking-wide leading-tight">{s.title}</h2>
-            <p class="font-serif italic text-oro text-lg md:text-xl">{s.subtitle}</p>
-            <p class="font-sans text-base md:text-lg text-pergamino/90 leading-relaxed">{s.summary}</p>
-            <span class="mt-4 inline-flex items-center gap-3 font-sans text-sm tracking-[0.3em] uppercase text-pergamino group-hover:text-oro transition-colors duration-300">
-              Ver servicio
-              <span class="block w-8 h-px bg-pergamino group-hover:bg-oro group-hover:w-12 transition-all duration-300"></span>
-            </span>
-          </div>
-        </a>
-      ))}
-    </div>
-  </section>
+  {items.map((s, i) => (
+    <ServicioDetalle
+      num={String(i + 1).padStart(2, '0')}
+      title={s.title}
+      subtitle={s.subtitle}
+      body={s.summary ?? ''}
+      image={s.image ?? s.imageList ?? ''}
+      href={getLocalePath(locale, `servicios/${s.slug}`)}
+      reverse={i % 2 === 1}
+    />
+  ))}
 </Layout>
-
-<style>
-  .bg-noche       { background-color: var(--color-noche); }
-  .text-pergamino { color: var(--color-pergamino); }
-  .text-oro       { color: var(--color-oro); }
-  .font-serif     { font-family: var(--font-serif); }
-  .font-sans      { font-family: var(--font-sans); }
-  .py-section     { padding-top: var(--spacing-section); padding-bottom: var(--spacing-section); }
-</style>

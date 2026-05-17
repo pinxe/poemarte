@@ -6,9 +6,10 @@ interface Props {
   body: string;
   image: string;
   reverse?: boolean;
+  href?: string;
 }
 
-const { num, title, subtitle, body, image, reverse = false } = Astro.props;
+const { num, title, subtitle, body, image, reverse = false, href } = Astro.props;
 ---
 
 <section class="servicio-detalle relative min-h-[100svh] flex items-center overflow-hidden">
@@ -44,6 +45,16 @@ const { num, title, subtitle, body, image, reverse = false } = Astro.props;
       <p class="font-sans text-base md:text-lg text-pergamino/95 leading-relaxed">
         {body}
       </p>
+
+      {href && (
+        <a
+          href={href}
+          class="mt-4 inline-flex items-center gap-4 font-sans text-sm tracking-[0.3em] uppercase text-pergamino hover:text-oro transition-colors duration-300 group font-medium"
+        >
+          <span>Ver servicio</span>
+          <span class="block w-10 h-px bg-pergamino group-hover:bg-oro group-hover:w-16 transition-all duration-300"></span>
+        </a>
+      )}
 
     </div>
   </div>

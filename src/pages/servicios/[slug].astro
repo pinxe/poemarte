@@ -23,7 +23,11 @@ const t = useTranslations(locale);
 const entry = await getServicioItem(slug);
 if (!entry) throw new Error(`Servicio no encontrado: ${slug}`);
 
-const aboutHtml = await renderMarkdoc(entry.about);
+const aboutAny: any = entry.about;
+const aboutNode = typeof aboutAny === 'function'
+  ? (await aboutAny()).node
+  : (aboutAny?.node ?? aboutAny);
+const aboutHtml = await renderMarkdoc(aboutNode);
 
 const contacto = await getContacto();
 ---
