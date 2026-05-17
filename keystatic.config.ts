@@ -191,11 +191,11 @@ export default config({
         }),
         logoNavHeight: fields.integer({
           label: 'Altura del logo en cabecera (px)',
-          defaultValue: 36,
+          defaultValue: 72,
         }),
         logoFooterHeight: fields.integer({
           label: 'Altura del logo en pie (px)',
-          defaultValue: 48,
+          defaultValue: 96,
         }),
       },
     }),
