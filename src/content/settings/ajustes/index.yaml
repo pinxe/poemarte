@@ -1,5 +1,5 @@
-logoNav: /images/cms/logo-principal.png
-logoFooter: /images/cms/logo-footer.png
+logoNav: /images/cms/logoNav.png
+logoFooter: /images/cms/logoFooter.png
 favicon: /images/cms/favicon.png
-logoNavHeight: 72
-logoFooterHeight: 96
+logoNavHeight: 36
+logoFooterHeight: 120
