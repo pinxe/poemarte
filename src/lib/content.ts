@@ -40,6 +40,12 @@ export async function getServicioItem(slug: string) {
   return { slug, ...entry };
 }
 
+export async function getColaboracionesPage() {
+  const data = await reader.singletons.colaboracionesPage.read();
+  if (!data) throw new Error('Falta contenido: Página Colaboraciones');
+  return data;
+}
+
 export async function getContacto() {
   const data = await reader.singletons.contacto.read();
   if (!data) throw new Error('Falta contenido: contacto');

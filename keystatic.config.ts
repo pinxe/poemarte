@@ -6,7 +6,7 @@ export default config({
   ui: {
     brand: { name: 'Poemarte CMS' },
     navigation: {
-      Páginas: ['home', 'sobre', 'servicios', 'contacto'],
+      Páginas: ['home', 'sobre', 'servicios', 'colaboracionesPage', 'contacto'],
       Servicios: ['servicios_items'],
       Colaboraciones: ['colaboraciones'],
       Configuración: ['ajustes', 'cookies'],
@@ -156,6 +156,23 @@ export default config({
       schema: {
         heroTitle:   fields.text({ label: 'Hero · Título', defaultValue: 'Servicios' }),
         heroTagline: fields.text({ label: 'Hero · Tagline', multiline: true }),
+        heroImage: fields.image({
+          label: 'Hero · Imagen',
+          directory: 'public/images/cms',
+          publicPath: '/images/cms/',
+        }),
+      },
+    }),
+
+    // ──────────────────────────────────────────────
+    // COLABORACIONES · página listado (hero)
+    // ──────────────────────────────────────────────
+    colaboracionesPage: singleton({
+      label: 'Página · Colaboraciones',
+      path: 'src/content/pages/colaboraciones/',
+      schema: {
+        heroTitle:   fields.text({ label: 'Hero · Título', defaultValue: 'Colaboraciones' }),
+        heroTagline: fields.text({ label: 'Hero · Tagline', multiline: true, defaultValue: 'Cada colaboración es un diálogo entre arte y palabra' }),
         heroImage: fields.image({
           label: 'Hero · Imagen',
           directory: 'public/images/cms',

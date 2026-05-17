@@ -3,25 +3,25 @@ import Layout from '../../layouts/Layout.astro';
 import Colaboraciones from '../../components/Colaboraciones.astro';
 import SobreHero from '../../components/sobre/SobreHero.astro';
 import { useTranslations } from '../../i18n';
-import { getHome, getColaboraciones } from '../../lib/content';
+import { getColaboracionesPage, getColaboraciones } from '../../lib/content';
 
 const locale = 'es';
 const t = useTranslations(locale);
 
-const home = await getHome();
+const page = await getColaboracionesPage();
 const colabs = await getColaboraciones();
 ---
 
-<Layout locale={locale} title={home.collabsTitle} currentPath="colaboraciones">
+<Layout locale={locale} title={page.heroTitle} currentPath="colaboraciones">
   <SobreHero
-    eyebrow={home.collabsTitle}
-    title={home.collabsTagline}
-    image={'/images/cms/heroImage.jpg'}
+    eyebrow={page.heroTitle}
+    title={page.heroTagline}
+    image={page.heroImage ?? '/images/cms/heroImage.jpg'}
   />
   <Colaboraciones
     locale={locale}
-    eyebrow={home.collabsTitle}
-    tagline={home.collabsTagline}
+    eyebrow={page.heroTitle}
+    tagline={page.heroTagline}
     viewLabel={t('ui.view_collab')}
     items={colabs.map(c => ({
       slug: c.slug,
