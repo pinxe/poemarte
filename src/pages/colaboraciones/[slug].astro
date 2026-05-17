@@ -23,7 +23,7 @@ const entry = await reader.collections.colaboraciones.read(slug);
 if (!entry) throw new Error(`Colaboración no encontrada: ${slug}`);
 
 const aboutNode = (await entry.about()).node;
-const aboutHtml = renderMarkdoc(aboutNode as any);
+const aboutHtml = await renderMarkdoc(aboutNode as any);
 
 const fecha = entry.fecha
   ? new Date(entry.fecha).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' })

@@ -7,7 +7,10 @@ export default config({
     brand: { name: 'Poemarte CMS' },
     navigation: {
       Páginas: ['home', 'sobre', 'servicios', 'contacto'],
+      Servicios: ['servicios_items'],
       Colaboraciones: ['colaboraciones'],
+      Configuración: ['ajustes', 'cookies'],
+      Legal: ['politicaPrivacidad', 'politicaCookies', 'avisoLegal'],
     },
   },
 
@@ -145,7 +148,7 @@ export default config({
     }),
 
     // ──────────────────────────────────────────────
-    // SERVICIOS
+    // SERVICIOS · página listado (hero)
     // ──────────────────────────────────────────────
     servicios: singleton({
       label: 'Página · Servicios',
@@ -158,27 +161,108 @@ export default config({
           directory: 'public/images/cms',
           publicPath: '/images/cms/',
         }),
-        items: fields.array(
-          fields.object({
-            title:    fields.text({ label: 'Título' }),
-            subtitle: fields.text({ label: 'Subtítulo' }),
-            body:     fields.text({ label: 'Descripción', multiline: true }),
-            image: fields.image({
-              label: 'Imagen',
-              directory: 'public/images/cms',
-              publicPath: '/images/cms/',
-            }),
-            imageList: fields.image({
-              label: 'Imagen (vista lista en Home)',
-              directory: 'public/images/cms',
-              publicPath: '/images/cms/',
-            }),
-          }),
-          {
-            label: 'Servicios',
-            itemLabel: (p) => p.fields.title.value || 'Servicio',
-          }
-        ),
+      },
+    }),
+
+    // ──────────────────────────────────────────────
+    // AJUSTES (logos, branding)
+    // ──────────────────────────────────────────────
+    ajustes: singleton({
+      label: 'Ajustes · Branding',
+      path: 'src/content/settings/ajustes/',
+      schema: {
+        logoNav: fields.image({
+          label: 'Logo · Cabecera',
+          description: 'Aparece en el menú superior. Si lo dejas vacío, se mostrará el texto "Poemarte".',
+          directory: 'public/images/cms',
+          publicPath: '/images/cms/',
+        }),
+        logoFooter: fields.image({
+          label: 'Logo · Pie de página',
+          description: 'Opcional. Si lo dejas vacío, se mostrará el texto "Poemarte".',
+          directory: 'public/images/cms',
+          publicPath: '/images/cms/',
+        }),
+        favicon: fields.image({
+          label: 'Favicon',
+          description: 'Icono de la pestaña del navegador (SVG o PNG).',
+          directory: 'public/images/cms',
+          publicPath: '/images/cms/',
+        }),
+        logoNavHeight: fields.integer({
+          label: 'Altura del logo en cabecera (px)',
+          defaultValue: 36,
+        }),
+        logoFooterHeight: fields.integer({
+          label: 'Altura del logo en pie (px)',
+          defaultValue: 48,
+        }),
+      },
+    }),
+
+    // ──────────────────────────────────────────────
+    // COOKIES · banner
+    // ──────────────────────────────────────────────
+    cookies: singleton({
+      label: 'Aviso de Cookies',
+      path: 'src/content/settings/cookies/',
+      schema: {
+        enabled: fields.checkbox({ label: 'Mostrar banner de cookies', defaultValue: true }),
+        title: fields.text({
+          label: 'Título',
+          defaultValue: 'Usamos cookies',
+        }),
+        message: fields.text({
+          label: 'Mensaje',
+          multiline: true,
+          defaultValue: 'Utilizamos cookies propias y de terceros para mejorar tu experiencia y analizar el uso del sitio. Puedes aceptarlas, rechazarlas o consultar nuestra política para más información.',
+        }),
+        acceptLabel: fields.text({ label: 'Botón aceptar', defaultValue: 'Aceptar' }),
+        rejectLabel: fields.text({ label: 'Botón rechazar', defaultValue: 'Rechazar' }),
+        policyLabel: fields.text({ label: 'Enlace a política', defaultValue: 'Política de cookies' }),
+        policyHref:  fields.text({ label: 'URL política de cookies', defaultValue: '/politica-cookies' }),
+      },
+    }),
+
+    // ──────────────────────────────────────────────
+    // LEGAL · privacidad
+    // ──────────────────────────────────────────────
+    politicaPrivacidad: singleton({
+      label: 'Política de Privacidad',
+      path: 'src/content/legal/privacidad/',
+      format: { contentField: 'body' },
+      schema: {
+        title:   fields.text({ label: 'Título', defaultValue: 'Política de Privacidad' }),
+        updated: fields.text({ label: 'Última actualización', defaultValue: '2026-05-17' }),
+        body:    fields.markdoc({ label: 'Contenido' }),
+      },
+    }),
+
+    // ──────────────────────────────────────────────
+    // LEGAL · cookies
+    // ──────────────────────────────────────────────
+    politicaCookies: singleton({
+      label: 'Política de Cookies',
+      path: 'src/content/legal/cookies/',
+      format: { contentField: 'body' },
+      schema: {
+        title:   fields.text({ label: 'Título', defaultValue: 'Política de Cookies' }),
+        updated: fields.text({ label: 'Última actualización', defaultValue: '2026-05-17' }),
+        body:    fields.markdoc({ label: 'Contenido' }),
+      },
+    }),
+
+    // ──────────────────────────────────────────────
+    // LEGAL · aviso legal
+    // ──────────────────────────────────────────────
+    avisoLegal: singleton({
+      label: 'Aviso Legal',
+      path: 'src/content/legal/aviso-legal/',
+      format: { contentField: 'body' },
+      schema: {
+        title:   fields.text({ label: 'Título', defaultValue: 'Aviso Legal' }),
+        updated: fields.text({ label: 'Última actualización', defaultValue: '2026-05-17' }),
+        body:    fields.markdoc({ label: 'Contenido' }),
       },
     }),
 
@@ -192,7 +276,7 @@ export default config({
         eyebrow: fields.text({ label: 'Etiqueta', defaultValue: 'Hablemos' }),
         title:   fields.text({ label: 'Título', defaultValue: 'Cuéntanos tu proyecto' }),
         tagline: fields.text({ label: 'Tagline', multiline: true }),
-        email:   fields.text({ label: 'Email de contacto', defaultValue: 'hola@poemarte.com' }),
+        email:   fields.text({ label: 'Email de contacto', defaultValue: 'info@poemarte.com' }),
         orLabel: fields.text({ label: 'Texto "o escríbenos a"', defaultValue: 'o escríbenos directamente a' }),
         formspreeId: fields.text({ label: 'Formspree ID', description: 'Tras la barra final de la URL' }),
       },
@@ -200,6 +284,56 @@ export default config({
   },
 
   collections: {
+    // ──────────────────────────────────────────────
+    // SERVICIOS (collection: una página por servicio)
+    // ──────────────────────────────────────────────
+    servicios_items: collection({
+      label: 'Servicios',
+      slugField: 'title',
+      path: 'src/content/servicios/*',
+      format: { contentField: 'about' },
+      schema: {
+        title:    fields.slug({ name: { label: 'Título del servicio' } }),
+        subtitle: fields.text({ label: 'Subtítulo' }),
+        summary:  fields.text({
+          label: 'Descripción corta',
+          description: 'Aparece en la lista de servicios y en la home',
+          multiline: true,
+        }),
+        image: fields.image({
+          label: 'Imagen principal (hero de la página)',
+          directory: 'public/images/cms',
+          publicPath: '/images/cms/',
+        }),
+        imageList: fields.image({
+          label: 'Imagen (vista lista en Home y página /servicios)',
+          directory: 'public/images/cms',
+          publicPath: '/images/cms/',
+        }),
+        about: fields.markdoc({
+          label: 'Contenido completo de la página',
+          description: 'Texto extendido del servicio: qué incluye, proceso, ejemplos, etc.',
+        }),
+        ctaLabel: fields.text({
+          label: 'CTA · Texto del botón',
+          defaultValue: 'Hablemos de tu proyecto',
+        }),
+        ctaTagline: fields.text({
+          label: 'CTA · Frase sobre el botón',
+          multiline: true,
+          defaultValue: '¿Tienes una idea? Cuéntanosla.',
+        }),
+        destacado: fields.checkbox({
+          label: 'Mostrar en menú principal',
+          defaultValue: true,
+        }),
+        orden: fields.integer({
+          label: 'Orden (menor = primero)',
+          defaultValue: 0,
+        }),
+      },
+    }),
+
     // ──────────────────────────────────────────────
     // COLABORACIONES
     // ──────────────────────────────────────────────

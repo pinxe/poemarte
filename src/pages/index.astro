@@ -5,14 +5,14 @@ import Presentacion from '../components/Presentacion.astro';
 import Servicios from '../components/Servicios.astro';
 import Colaboraciones from '../components/Colaboraciones.astro';
 import { useTranslations } from '../i18n';
-import { getHome, getServicios, getColaboraciones } from '../lib/content';
+import { getHome, getServiciosItems, getColaboraciones } from '../lib/content';
 
 const locale = 'es';
 const t = useTranslations(locale);
 
 const home = await getHome();
-const serv = await getServicios();
-const colabs = (await getColaboraciones()).filter(c => c.destacada).slice(0, 6);
+const servItems = await getServiciosItems();
+const colabs = (await getColaboraciones()).filter(c => c.destacada).slice(0, 3);
 ---
 
 <Layout locale={locale}>
@@ -21,7 +21,6 @@ const colabs = (await getColaboraciones()).filter(c => c.destacada).slice(0, 6);
     subtitle={home.heroSubtitle}
     tagline={home.heroTagline}
     image={home.heroImage ?? '/images/cms/home-hero.jpg'}
-    scrollLabel={t('ui.scroll')}
   />
   <Presentacion
     eyebrow={home.presentationEyebrow}
@@ -37,7 +36,8 @@ const colabs = (await getColaboraciones()).filter(c => c.destacada).slice(0, 6);
     eyebrow={t('nav.services')}
     heading={home.servicesHeading}
     seeAllLabel={t('ui.see_all')}
-    items={serv.items.map(it => ({
+    items={servItems.map(it => ({
+      slug: it.slug,
       title: it.title,
       subtitle: it.subtitle,
       imageList: it.imageList ?? it.image ?? '',

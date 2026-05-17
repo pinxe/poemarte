@@ -1,0 +1,167 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Contacto from '../../components/Contacto.astro';
+import { useTranslations, getLocalePath } from '../../i18n';
+import { getServiciosItems, getServicioItem, getContacto } from '../../lib/content';
+import { renderMarkdoc } from '../../lib/markdoc';
+
+export async function getStaticPaths() {
+  const items = await getServiciosItems();
+  return items.map((entry, idx) => {
+    const next = items[(idx + 1) % items.length];
+    return {
+      params: { slug: entry.slug },
+      props: { slug: entry.slug, nextSlug: next.slug, nextTitle: next.title },
+    };
+  });
+}
+
+const { slug, nextSlug, nextTitle } = Astro.props;
+const locale = 'es';
+const t = useTranslations(locale);
+
+const entry = await getServicioItem(slug);
+if (!entry) throw new Error(`Servicio no encontrado: ${slug}`);
+
+const aboutHtml = await renderMarkdoc(entry.about);
+
+const contacto = await getContacto();
+---
+
+<Layout locale={locale} title={entry.title} currentPath={`servicios/${slug}`}>
+
+  <!-- HERO -->
+  <section class="relative min-h-[80vh] md:min-h-[90svh] flex flex-col justify-end overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-t from-noche via-noche/70 to-noche/40 z-10"></div>
+      <img src={entry.image ?? entry.imageList ?? ''} alt={entry.title} loading="eager" fetchpriority="high" decoding="async" class="w-full h-full object-cover" />
+    </div>
+
+    <div class="relative z-20 px-6 md:px-16 pb-16 md:pb-24 max-w-5xl">
+      <p class="hero-line font-sans text-sm tracking-[0.5em] uppercase text-oro mb-5 md:mb-6 opacity-0 font-medium hero-shadow">
+        {t('nav.services')}
+      </p>
+      <h1 class="hero-line font-serif text-[clamp(2.25rem,8vw,6rem)] leading-[1.05] text-pergamino opacity-0 hero-shadow uppercase tracking-wide">
+        {entry.title}
+      </h1>
+      {entry.subtitle && (
+        <p class="hero-line font-serif italic text-pergamino text-xl md:text-2xl mt-5 md:mt-6 max-w-2xl opacity-0 hero-shadow">
+          {entry.subtitle}
+        </p>
+      )}
+    </div>
+  </section>
+
+  <!-- Volver -->
+  <div class="bg-noche px-6 md:px-16 pt-10 md:pt-12">
+    <div class="max-w-7xl mx-auto">
+      <a
+        href={getLocalePath(locale, 'servicios')}
+        class="inline-flex items-center gap-3 font-sans text-xs tracking-[0.25em] uppercase text-pergamino/60 hover:text-oro transition-colors duration-300 group"
+      >
+        <span class="block w-6 h-px bg-current group-hover:w-10 transition-all duration-300"></span>
+        <span>Todos los servicios</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Contenido extendido -->
+  <section class="bg-noche py-section px-6 md:px-16">
+    <div class="max-w-3xl mx-auto reveal-about">
+      {entry.summary && (
+        <p class="font-serif italic text-oro text-xl md:text-2xl mb-10 leading-relaxed">
+          {entry.summary}
+        </p>
+      )}
+      <div class="prose-poemarte font-sans text-base md:text-lg text-pergamino/95 leading-relaxed" set:html={aboutHtml}></div>
+    </div>
+  </section>
+
+  <!-- CTA contacto rápido -->
+  <section class="bg-hueso py-section px-6 md:px-16">
+    <div class="max-w-4xl mx-auto text-center reveal-cta">
+      <p class="font-sans text-sm tracking-[0.4em] uppercase text-oro mb-6 font-medium">Hablemos</p>
+      <h2 class="font-serif text-noche text-[clamp(2rem,5vw,3.5rem)] leading-tight mb-6">
+        {entry.ctaTagline}
+      </h2>
+      <a
+        href={getLocalePath(locale, 'contacto')}
+        class="inline-flex items-center gap-4 font-sans text-sm tracking-[0.3em] uppercase text-noche hover:text-oro transition-colors duration-300 group font-medium"
+      >
+        <span>{entry.ctaLabel}</span>
+        <span class="block w-10 h-px bg-noche group-hover:bg-oro group-hover:w-16 transition-all duration-300"></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Formulario embebido -->
+  <Contacto
+    eyebrow={contacto.eyebrow}
+    title={contacto.title}
+    tagline={contacto.tagline}
+    email={contacto.email}
+    orLabel={contacto.orLabel}
+    formspreeId={contacto.formspreeId}
+    nameLabel={t('ui.form_name')}
+    emailLabel={t('ui.form_email')}
+    messageLabel={t('ui.form_message')}
+    sendLabel={t('ui.form_send')}
+  />
+
+  <!-- Siguiente servicio -->
+  <section class="bg-noche border-t border-pergamino/10 px-6 md:px-16 py-16 md:py-20">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+      <p class="font-sans text-[10px] tracking-[0.4em] uppercase text-pergamino/55">Siguiente servicio</p>
+      <a
+        href={getLocalePath(locale, `servicios/${nextSlug}`)}
+        class="font-serif italic text-pergamino text-2xl md:text-3xl hover:text-oro transition-colors duration-300 inline-flex items-center gap-4 group"
+      >
+        <span>{nextTitle}</span>
+        <span class="block w-8 h-px bg-pergamino/40 group-hover:bg-oro group-hover:w-14 transition-all duration-300"></span>
+      </a>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.timeline({ delay: 0.3 })
+    .fromTo('.hero-line', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.18, ease: 'power3.out' });
+
+  gsap.fromTo('.reveal-about',
+    { y: 30, opacity: 0 },
+    { scrollTrigger: { trigger: '.reveal-about', start: 'top 90%' }, y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+  );
+
+  gsap.fromTo('.reveal-cta',
+    { y: 30, opacity: 0 },
+    { scrollTrigger: { trigger: '.reveal-cta', start: 'top 85%' }, y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+  );
+</script>
+
+<style>
+  .bg-noche       { background-color: var(--color-noche); }
+  .bg-hueso       { background-color: var(--color-hueso); }
+  .text-noche     { color: var(--color-noche); }
+  .text-pergamino { color: var(--color-pergamino); }
+  .text-oro       { color: var(--color-oro); }
+  .font-serif     { font-family: var(--font-serif); }
+  .font-sans      { font-family: var(--font-sans); }
+  .py-section     { padding-top: var(--spacing-section); padding-bottom: var(--spacing-section); }
+  .hero-shadow    { text-shadow: 0 2px 18px rgba(0,0,0,0.65), 0 1px 3px rgba(0,0,0,0.5); }
+
+  .prose-poemarte :global(p) { margin: 0; }
+  .prose-poemarte :global(p + p) { margin-top: 1.25rem; }
+  .prose-poemarte :global(h2) { font-family: var(--font-serif); font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; color: var(--color-pergamino); }
+  .prose-poemarte :global(h3) { font-family: var(--font-serif); font-size: 1.4rem; margin-top: 2rem; margin-bottom: 0.75rem; color: var(--color-pergamino); }
+  .prose-poemarte :global(ul) { list-style: disc; padding-left: 1.25rem; margin: 1rem 0; }
+  .prose-poemarte :global(ol) { list-style: decimal; padding-left: 1.25rem; margin: 1rem 0; }
+  .prose-poemarte :global(li) { margin: 0.25rem 0; }
+  .prose-poemarte :global(em) { color: var(--color-oro); font-style: italic; }
+  .prose-poemarte :global(strong) { color: var(--color-pergamino); font-weight: 600; }
+  .prose-poemarte :global(a) { color: var(--color-oro); text-decoration: underline; text-underline-offset: 4px; }
+</style>

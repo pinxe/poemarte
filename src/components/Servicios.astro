@@ -3,6 +3,7 @@ import { getLocalePath } from '../i18n';
 import type { Locale } from '../i18n';
 
 interface ServiceItem {
+  slug: string;
   title: string;
   subtitle: string;
   imageList: string;
@@ -38,23 +39,27 @@ const { locale, eyebrow, heading, seeAllLabel, items } = Astro.props;
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-pergamino/10">
       {items.map((item, i) => (
-        <article class="service-card relative overflow-hidden bg-noche group aspect-[4/3]">
+        <a
+          href={getLocalePath(locale, `servicios/${item.slug}`)}
+          class="service-card relative overflow-hidden bg-noche group aspect-[4/3] block"
+        >
           <img
             src={item.imageList}
             alt={item.title}
             loading="lazy"
             decoding="async"
-            class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700"
+            class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 group-hover:scale-105 transition-all duration-700"
           />
+          <div class="absolute inset-0 bg-gradient-to-t from-noche via-noche/60 to-noche/30 z-[1]"></div>
           <div class="relative z-10 h-full flex flex-col justify-between p-8 md:p-10">
             <span class="font-serif text-6xl text-pergamino/10 leading-none">{String(i + 1).padStart(2, '0')}</span>
             <div>
-              <h3 class="font-serif text-2xl md:text-3xl text-pergamino mb-2 leading-tight">{item.title}</h3>
-              <p class="font-serif italic text-ceniza text-sm">{item.subtitle}</p>
+              <h3 class="font-serif text-2xl md:text-3xl text-pergamino mb-3 leading-tight card-shadow">{item.title}</h3>
+              <p class="font-serif italic text-pergamino/95 text-base md:text-lg card-shadow">{item.subtitle}</p>
               <div class="mt-6 w-0 h-px bg-oro group-hover:w-12 transition-all duration-500"></div>
             </div>
           </div>
-        </article>
+        </a>
       ))}
     </div>
 
@@ -86,4 +91,5 @@ const { locale, eyebrow, heading, seeAllLabel, items } = Astro.props;
   .font-serif     { font-family: var(--font-serif); }
   .font-sans      { font-family: var(--font-sans); }
   .py-section     { padding-top: var(--spacing-section); padding-bottom: var(--spacing-section); }
+  .card-shadow    { text-shadow: 0 2px 14px rgba(0,0,0,0.7); }
 </style>

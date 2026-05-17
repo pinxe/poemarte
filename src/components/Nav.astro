@@ -1,6 +1,7 @@
 ---
 import { useTranslations, getLocalePath } from '../i18n';
 import type { Locale } from '../i18n';
+import { getServiciosItems, getAjustes } from '../lib/content';
 
 interface Props {
   locale: Locale;
@@ -10,29 +11,70 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
-const navLinks = [
-  { key: 'nav.home',     href: getLocalePath(locale) },
-  { key: 'nav.about',    href: getLocalePath(locale, 'sobre') },
-  { key: 'nav.services', href: getLocalePath(locale, 'servicios') },
-  { key: 'nav.contact',  href: getLocalePath(locale, 'contacto') },
-];
+const ajustes = await getAjustes();
+const servItems = await getServiciosItems();
+const servDestacados = servItems.filter(s => s.destacado);
+
+const logoNav = ajustes?.logoNav ?? null;
+const logoNavHeight = ajustes?.logoNavHeight ?? 36;
 ---
 
 <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out">
   <nav class="flex items-center justify-between px-6 py-5 md:px-16 md:py-6 transition-all duration-500">
 
-    <a href={getLocalePath(locale)} class="font-serif text-lg md:text-xl tracking-widest text-pergamino uppercase">
-      Poemarte
+    <a href={getLocalePath(locale)} class="flex items-center font-serif text-lg md:text-xl tracking-widest text-pergamino uppercase">
+      {logoNav ? (
+        <img src={logoNav} alt="Poemarte" style={`height:${logoNavHeight}px;width:auto;`} class="block" />
+      ) : (
+        <span>Poemarte</span>
+      )}
     </a>
 
     <ul class="hidden md:flex items-center gap-10">
-      {navLinks.map(link => (
-        <li>
-          <a href={link.href} class="font-sans text-xs tracking-[0.2em] uppercase text-pergamino/90 hover:text-oro transition-colors duration-300 font-medium">
-            {t(link.key)}
-          </a>
-        </li>
-      ))}
+      <li>
+        <a href={getLocalePath(locale)} class="nav-link">{t('nav.home')}</a>
+      </li>
+      <li>
+        <a href={getLocalePath(locale, 'sobre')} class="nav-link">{t('nav.about')}</a>
+      </li>
+      <li class="relative group nav-dropdown">
+        <a
+          href={getLocalePath(locale, 'servicios')}
+          class="nav-link inline-flex items-center gap-1.5"
+          aria-haspopup="true"
+        >
+          {t('nav.services')}
+          <svg width="8" height="6" viewBox="0 0 8 6" fill="none" class="opacity-70"><path d="M1 1l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="nav-submenu absolute left-1/2 -translate-x-1/2 top-full pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 min-w-[260px]">
+          <ul class="bg-noche/95 backdrop-blur-md border border-pergamino/10 py-3 shadow-2xl">
+            {servDestacados.map(s => (
+              <li>
+                <a
+                  href={getLocalePath(locale, `servicios/${s.slug}`)}
+                  class="block px-5 py-2 font-sans text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro hover:bg-pergamino/5 transition-colors duration-200 font-medium"
+                >
+                  {s.title}
+                </a>
+              </li>
+            ))}
+            <li class="border-t border-pergamino/10 mt-2 pt-2">
+              <a
+                href={getLocalePath(locale, 'servicios')}
+                class="block px-5 py-2 font-sans text-xs tracking-[0.2em] uppercase text-oro/90 hover:text-oro hover:bg-pergamino/5 transition-colors duration-200 font-medium italic"
+              >
+                {t('nav.all_services')}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <a href={getLocalePath(locale, 'colaboraciones')} class="nav-link">{t('nav.collaborations')}</a>
+      </li>
+      <li>
+        <a href={getLocalePath(locale, 'contacto')} class="nav-link">{t('nav.contact')}</a>
+      </li>
     </ul>
 
     <button
@@ -49,15 +91,29 @@ const navLinks = [
 
   <div
     id="mobile-menu"
-    class="hidden md:hidden fixed inset-0 bg-noche flex-col items-center justify-center gap-8 z-40 px-8"
+    class="hidden md:hidden fixed inset-0 bg-noche flex-col items-center justify-center gap-6 z-40 px-8 overflow-y-auto py-24"
   >
-    <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro mb-4">{t('ui.tagline')}</p>
-    {navLinks.map(link => (
-      <a href={link.href} class="font-serif text-3xl italic text-pergamino hover:text-oro transition-colors duration-300">
-        {t(link.key)}
-      </a>
-    ))}
-    <div class="mt-6 w-12 h-px bg-pergamino/20"></div>
+    <p class="font-sans text-[10px] tracking-[0.5em] uppercase text-oro mb-2">{t('ui.tagline')}</p>
+    <a href={getLocalePath(locale)} class="mobile-link">{t('nav.home')}</a>
+    <a href={getLocalePath(locale, 'sobre')} class="mobile-link">{t('nav.about')}</a>
+
+    <div class="flex flex-col items-center gap-3">
+      <a href={getLocalePath(locale, 'servicios')} class="mobile-link">{t('nav.services')}</a>
+      <ul class="flex flex-col items-center gap-2">
+        {servDestacados.map(s => (
+          <li>
+            <a
+              href={getLocalePath(locale, `servicios/${s.slug}`)}
+              class="font-sans text-xs tracking-[0.2em] uppercase text-pergamino/75 hover:text-oro transition-colors"
+            >· {s.title}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <a href={getLocalePath(locale, 'colaboraciones')} class="mobile-link">{t('nav.collaborations')}</a>
+    <a href={getLocalePath(locale, 'contacto')} class="mobile-link">{t('nav.contact')}</a>
+    <div class="mt-4 w-12 h-px bg-pergamino/20"></div>
   </div>
 </header>
 
@@ -79,7 +135,6 @@ const navLinks = [
     setMenu(!isOpen);
   });
 
-  // Cerrar con Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') setMenu(false);
   });
@@ -111,6 +166,26 @@ const navLinks = [
   .font-serif     { font-family: var(--font-serif); }
   .font-sans      { font-family: var(--font-sans); }
 
+  .nav-link {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-pergamino) 90%, transparent);
+    transition: color .3s;
+    font-weight: 500;
+  }
+  .nav-link:hover { color: var(--color-oro); }
+
+  .mobile-link {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.875rem;
+    color: var(--color-pergamino);
+    transition: color .3s;
+  }
+  .mobile-link:hover { color: var(--color-oro); }
+
   #site-header {
     background-color: transparent;
     backdrop-filter: none;
@@ -129,7 +204,6 @@ const navLinks = [
     padding-bottom: 0.85rem;
   }
 
-  /* Hamburguesa → cruz */
   #menu-toggle.is-open .bar-top {
     transform: translateY(3px) rotate(45deg);
     width: 1.5rem;

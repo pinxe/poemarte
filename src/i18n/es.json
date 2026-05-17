@@ -3,7 +3,9 @@
     "home": "Inicio",
     "about": "Sobre",
     "services": "Servicios",
-    "contact": "Contacto"
+    "collaborations": "Colaboraciones",
+    "contact": "Contacto",
+    "all_services": "Ver todos los servicios"
   },
   "ui": {
     "scroll": "scroll",

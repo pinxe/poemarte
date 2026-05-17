@@ -1,54 +1,26 @@
-type Node = {
-  type: string;
-  tag?: string;
-  attributes?: Record<string, any>;
-  children?: Node[];
-  content?: string;
-  [k: string]: any;
-};
+import Markdoc from '@markdoc/markdoc';
 
-function escape(s: string) {
-  return s.replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  }[c] as string));
-}
-
-const TAG_MAP: Record<string, string> = {
-  paragraph: 'p',
-  heading: 'h2',
-  strong: 'strong',
-  em: 'em',
-  link: 'a',
-  list: 'ul',
-  item: 'li',
-  blockquote: 'blockquote',
-  hr: 'hr',
-  br: 'br',
-  hardbreak: 'br',
-  softbreak: 'br',
-};
-
-export function renderMarkdoc(node: Node | string | null | undefined): string {
+/**
+ * Renderiza el contenido markdoc de Keystatic a HTML.
+ * Acepta un nodo ya transformado, un AST, una función (cuando se usa
+ * `resolveLinkedFiles`) o una cadena markdown.
+ */
+export async function renderMarkdoc(input: any): Promise<string> {
+  if (!input) return '';
+  const node = typeof input === 'function' ? await input() : input;
   if (!node) return '';
-  if (typeof node === 'string') return escape(node);
 
-  if (node.type === 'text') return escape(node.content ?? '');
-  if (node.type === 'hardbreak' || node.type === 'softbreak') return '<br/>';
-
-  const children = (node.children ?? []).map(renderMarkdoc).join('');
-
-  const tag = TAG_MAP[node.type] ?? (node.type === 'document' ? '' : null);
-  if (tag === null) return children;
-  if (tag === '') return children;
-
-  const attrs = node.attributes ?? {};
-  let attrStr = '';
-  if (node.type === 'link' && attrs.href) {
-    attrStr = ` href="${escape(String(attrs.href))}"`;
-  }
-  if (node.type === 'heading' && attrs.level) {
-    return `<h${attrs.level}${attrStr}>${children}</h${attrs.level}>`;
+  if (typeof node === 'string') {
+    const ast = Markdoc.parse(node);
+    const rendered = Markdoc.transform(ast);
+    return Markdoc.renderers.html(rendered);
   }
 
-  return `<${tag}${attrStr}>${children}</${tag}>`;
+  // node ya es un RenderableTreeNode / AST
+  if ('type' in node && node.type === 'document') {
+    const transformed = Markdoc.transform(node);
+    return Markdoc.renderers.html(transformed);
+  }
+
+  return Markdoc.renderers.html(node);
 }

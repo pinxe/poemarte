@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LegalPage from '../components/LegalPage.astro';
+import { getPoliticaCookies } from '../lib/content';
+import { renderMarkdoc } from '../lib/markdoc';
+
+const data = await getPoliticaCookies();
+if (!data) throw new Error('Falta contenido: Política de Cookies');
+
+const bodyAny: any = data.body;
+const node = typeof bodyAny === 'function' ? (await bodyAny()).node : (bodyAny?.node ?? bodyAny);
+const html = await renderMarkdoc(node);
+---
+
+<Layout locale="es" title={data.title} currentPath="politica-cookies">
+  <LegalPage title={data.title} updated={data.updated} bodyHtml={html} />
+</Layout>

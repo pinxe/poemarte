@@ -1,25 +1,3 @@
 heroTitle: Servicios
 heroTagline: Cada servicio es una manera de tejer arte y palabra.
 heroImage: /images/cms/servicios-hero.jpg
-
-items:
-  - title: Exposiciones
-    subtitle: Versos que acompañan la mirada
-    body: Poemas creados desde la escucha de cada obra para acompañar exposiciones individuales o colectivas. Los textos pueden integrarse como cartelas, textos de sala, catálogos o experiencias inmersivas que amplían la mirada del visitante.
-    image: /images/cms/servicio-exposiciones-detalle.jpg
-    imageList: /images/cms/servicio-exposiciones.jpg
-  - title: Piezas Artesanales
-    subtitle: La palabra como sello de lo hecho a mano
-    body: 'Para artesanos y creadores de piezas únicas: un poema que acompaña la obra y la convierte en algo más que un objeto. Una historia, una emoción, un sello poético que dialoga con lo hecho a mano.'
-    image: /images/cms/servicio-artesanales-detalle.jpg
-    imageList: /images/cms/servicio-artesanales.jpg
-  - title: Colaboraciones
-    subtitle: Poemas a medida, creados desde la esencia
-    body: Colaboraciones a medida con artistas, galerías y proyectos culturales. Cada palabra nace del diálogo con la obra y respeta la identidad de quien la crea, abriendo una nueva dimensión narrativa.
-    image: /images/cms/servicio-colaboraciones-detalle.jpg
-    imageList: /images/cms/servicio-colaboraciones.jpg
-  - title: Merchandising
-    subtitle: Objetos donde la poesía toma forma
-    body: 'Objetos donde la poesía se vuelve tangible: tarjetas, ediciones limitadas, piezas editoriales. El poema sale del marco para acompañar al público en su día a día.'
-    image: /images/cms/servicio-merchandising-detalle.jpg
-    imageList: /images/cms/servicio-merchandising.jpg

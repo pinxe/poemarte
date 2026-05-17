@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LegalPage from '../components/LegalPage.astro';
+import { getPoliticaPrivacidad } from '../lib/content';
+import { renderMarkdoc } from '../lib/markdoc';
+
+const data = await getPoliticaPrivacidad();
+if (!data) throw new Error('Falta contenido: Política de Privacidad');
+const bodyAny: any = data.body;
+const node = typeof bodyAny === 'function' ? (await bodyAny()).node : (bodyAny?.node ?? bodyAny);
+const html = await renderMarkdoc(node);
+---
+
+<Layout locale="es" title={data.title} currentPath="politica-privacidad">
+  <LegalPage title={data.title} updated={data.updated} bodyHtml={html} />
+</Layout>

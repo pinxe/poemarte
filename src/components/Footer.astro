@@ -1,30 +1,51 @@
 ---
 import { useTranslations, getLocalePath } from '../i18n';
 import type { Locale } from '../i18n';
+import { getAjustes } from '../lib/content';
 
 interface Props { locale: Locale; }
 
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 const year = new Date().getFullYear();
+
+const ajustes = await getAjustes();
+const logoFooter = ajustes?.logoFooter ?? null;
+const logoFooterHeight = ajustes?.logoFooterHeight ?? 48;
 ---
 
 <footer class="border-t border-pergamino/10 px-6 py-12 md:px-16 md:py-16">
-  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+  <div class="max-w-7xl mx-auto flex flex-col gap-10 md:gap-12">
 
-    <div>
-      <p class="font-serif text-2xl text-pergamino tracking-widest uppercase">Poemarte</p>
-      <p class="font-serif italic text-ceniza text-sm mt-1">{t('ui.tagline')}</p>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+
+      <div class="flex flex-col items-center md:items-start gap-2">
+        {logoFooter ? (
+          <img src={logoFooter} alt="Poemarte" style={`height:${logoFooterHeight}px;width:auto;`} class="block" />
+        ) : (
+          <p class="font-serif text-2xl text-pergamino tracking-widest uppercase">Poemarte</p>
+        )}
+        <p class="font-serif italic text-ceniza text-sm">{t('ui.tagline')}</p>
+      </div>
+
+      <nav class="flex flex-wrap justify-center gap-6 md:gap-8">
+        <a href={getLocalePath(locale)} class="footer-link">{t('nav.home')}</a>
+        <a href={getLocalePath(locale, 'sobre')} class="footer-link">{t('nav.about')}</a>
+        <a href={getLocalePath(locale, 'servicios')} class="footer-link">{t('nav.services')}</a>
+        <a href={getLocalePath(locale, 'colaboraciones')} class="footer-link">{t('nav.collaborations')}</a>
+        <a href={getLocalePath(locale, 'contacto')} class="footer-link">{t('nav.contact')}</a>
+      </nav>
+
     </div>
 
-    <nav class="flex flex-wrap justify-center gap-6 md:gap-8">
-      <a href={getLocalePath(locale)} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">{t('nav.home')}</a>
-      <a href={getLocalePath(locale, 'sobre')} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">{t('nav.about')}</a>
-      <a href={getLocalePath(locale, 'servicios')} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">{t('nav.services')}</a>
-      <a href={getLocalePath(locale, 'contacto')} class="text-xs tracking-[0.2em] uppercase text-pergamino/85 hover:text-oro transition-colors duration-300 font-medium">{t('nav.contact')}</a>
-    </nav>
-
-    <p class="text-xs text-pergamino/65 tracking-widest">© {year} Poemarte — {t('ui.rights')}</p>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left border-t border-pergamino/10 pt-6">
+      <p class="text-xs text-pergamino/65 tracking-widest">© {year} Poemarte — {t('ui.rights')}</p>
+      <nav class="flex flex-wrap justify-center gap-5 md:gap-6">
+        <a href={getLocalePath(locale, 'politica-privacidad')} class="legal-link">Política de Privacidad</a>
+        <a href={getLocalePath(locale, 'politica-cookies')} class="legal-link">Política de Cookies</a>
+        <a href={getLocalePath(locale, 'aviso-legal')} class="legal-link">Aviso Legal</a>
+      </nav>
+    </div>
 
   </div>
 </footer>
@@ -35,4 +56,23 @@ const year = new Date().getFullYear();
   .text-oro       { color: var(--color-oro); }
   .border-pergamino\/10 { border-color: color-mix(in srgb, var(--color-pergamino) 10%, transparent); }
   .font-serif     { font-family: var(--font-serif); }
+
+  .footer-link {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-pergamino) 85%, transparent);
+    font-weight: 500;
+    transition: color .3s;
+  }
+  .footer-link:hover { color: var(--color-oro); }
+
+  .legal-link {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    color: color-mix(in srgb, var(--color-pergamino) 60%, transparent);
+    transition: color .3s;
+  }
+  .legal-link:hover { color: var(--color-oro); }
 </style>

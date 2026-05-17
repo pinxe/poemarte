@@ -2,8 +2,10 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Cursor from '../components/Cursor.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 import { useTranslations } from '../i18n';
 import type { Locale } from '../i18n';
+import { getAjustes } from '../lib/content';
 import '../styles/global.css';
 
 interface Props {
@@ -18,6 +20,13 @@ const t = useTranslations(locale);
 
 const pageTitle = title ? `${title} — Poemarte` : 'Poemarte — Banda Sonora de Palabras';
 const pageDescription = description ?? t('meta.description');
+
+const ajustes = await getAjustes();
+const faviconHref = ajustes?.favicon ?? '/favicon.svg';
+const faviconType = faviconHref.endsWith('.svg') ? 'image/svg+xml'
+  : faviconHref.endsWith('.png') ? 'image/png'
+  : faviconHref.endsWith('.ico') ? 'image/x-icon'
+  : 'image/svg+xml';
 ---
 
 <!doctype html>
@@ -39,7 +48,7 @@ const pageDescription = description ?? t('meta.description');
     <link rel="alternate" hreflang="en" href={`/en/`} />
     <link rel="alternate" hreflang="x-default" href={`/`} />
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type={faviconType} href={faviconHref} />
   </head>
 
   <body>
@@ -51,6 +60,8 @@ const pageDescription = description ?? t('meta.description');
     </main>
 
     <Footer locale={locale} />
+
+    <CookieBanner />
 
     <!-- Transición de página: fundido a negro -->
     <div id="page-transition" class="fixed inset-0 bg-noche z-[9998] pointer-events-none opacity-0 transition-opacity duration-500"></div>

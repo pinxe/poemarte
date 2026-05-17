@@ -1,0 +1,39 @@
+---
+interface Props {
+  title: string;
+  updated?: string;
+  bodyHtml: string;
+}
+
+const { title, updated, bodyHtml } = Astro.props;
+---
+
+<section class="bg-noche pt-40 pb-section px-6 md:px-16">
+  <div class="max-w-3xl mx-auto">
+    <p class="font-sans text-sm tracking-[0.4em] uppercase text-oro mb-6 font-medium">Legal</p>
+    <h1 class="font-serif text-pergamino text-[clamp(2rem,5vw,3.5rem)] leading-tight mb-4">{title}</h1>
+    {updated && (
+      <p class="font-sans text-sm text-pergamino/60 mb-12">Última actualización: {updated}</p>
+    )}
+    <div class="prose-legal font-sans text-base md:text-lg text-pergamino/95 leading-relaxed" set:html={bodyHtml}></div>
+  </div>
+</section>
+
+<style>
+  .bg-noche       { background-color: var(--color-noche); }
+  .text-pergamino { color: var(--color-pergamino); }
+  .text-oro       { color: var(--color-oro); }
+  .font-serif     { font-family: var(--font-serif); }
+  .font-sans      { font-family: var(--font-sans); }
+  .pb-section     { padding-bottom: var(--spacing-section); }
+
+  .prose-legal :global(h2) { font-family: var(--font-serif); font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; color: var(--color-pergamino); }
+  .prose-legal :global(h3) { font-family: var(--font-serif); font-size: 1.35rem; margin-top: 2rem; margin-bottom: 0.75rem; color: var(--color-pergamino); }
+  .prose-legal :global(p) { margin: 0 0 1rem; }
+  .prose-legal :global(ul) { list-style: disc; padding-left: 1.25rem; margin: 1rem 0; }
+  .prose-legal :global(ol) { list-style: decimal; padding-left: 1.25rem; margin: 1rem 0; }
+  .prose-legal :global(li) { margin: 0.35rem 0; }
+  .prose-legal :global(em) { color: var(--color-oro); font-style: italic; }
+  .prose-legal :global(strong) { color: var(--color-pergamino); font-weight: 600; }
+  .prose-legal :global(a) { color: var(--color-oro); text-decoration: underline; text-underline-offset: 4px; }
+</style>

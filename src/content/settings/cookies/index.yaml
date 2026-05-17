@@ -1,0 +1,10 @@
+enabled: true
+title: Usamos cookies
+message: >-
+  Utilizamos cookies propias y de terceros para mejorar tu experiencia y
+  analizar el uso del sitio. Puedes aceptarlas, rechazarlas o consultar nuestra
+  política para más información.
+acceptLabel: Aceptar
+rejectLabel: Rechazar
+policyLabel: Política de cookies
+policyHref: /politica-cookies
