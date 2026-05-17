@@ -20,7 +20,7 @@ const logoNavHeight = ajustes?.logoNavHeight ?? 36;
 ---
 
 <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out">
-  <nav class="flex items-center justify-between px-6 py-5 md:px-16 md:py-6 transition-all duration-500">
+  <nav class="flex items-center justify-between px-6 py-3 md:px-16 md:py-3 transition-all duration-500">
 
     <a href={getLocalePath(locale)} class="flex items-center font-serif text-lg md:text-xl tracking-widest text-pergamino uppercase">
       {logoNav ? (
@@ -192,8 +192,8 @@ const logoNavHeight = ajustes?.logoNavHeight ?? 36;
   }
 
   nav.is-scrolled-nav {
-    padding-top: 0.85rem;
-    padding-bottom: 0.85rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 
   #menu-toggle.is-open .bar-top {
