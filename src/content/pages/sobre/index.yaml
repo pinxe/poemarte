@@ -1,78 +1,125 @@
 heroEyebrow: Banda Sonora de Palabras
 heroTitle: Sobre Poemarte
-heroImage: /images/cms/sobre-hero.jpg
-
+heroImage: /images/cms/heroImage.jpg
 whatTitle: ¿Qué es Poemarte?
 whatQuote: Poemarte escucha las obras de arte y escribe su banda sonora de palabras.
-whatBody: |-
-  Poemarte es la voz de un poeta que mira el arte con los ojos del alma. Detrás del proyecto hay un creador que ha hecho de la palabra un lugar de encuentro con la belleza y la emoción.
+whatBody: >-
+  Poemarte es la voz de un poeta que mira el arte con los ojos del alma. Detrás
+  de este proyecto hay un artista que ha hecho de la palabra un lugar de
+  encuentro con la belleza y la emoción.
 
-  Su mirada se detiene en los detalles, escucha los colores, las texturas y los silencios que habitan cada obra. Desde esa contemplación, traduce lo que siente en versos que acompañan, interpretan y amplifican la esencia de cada creación.
 
-  En sus poemas se entrelazan emoción y oficio, hasta encontrar la melodía que el arte guarda en secreto.
-whatImage: /images/cms/sobre-que-hacemos.jpg
+  Su mirada se detiene en los detalles, escucha los colores, las texturas y los
+  silencios que habitan cada obra. Desde esa contemplación, traduce lo que
+  siente en versos que acompañan, interpretan y amplifican la esencia de cada
+  creación.
 
+
+  En sus poemas se entrelazan emoción y oficio, hasta encontrar la melodía que
+  el arte guarda en secreto.
+whatImage: /images/cms/whatImage.jpg
 passionTitle: Nuestra pasión
-passionIntroQuote: Poemarte nace del deseo de acompañar la creación artística con la fuerza de la palabra. Cada poema es un eco, una caricia que traduce lo que la obra sugiere.
-passionIntroBody: Cada obra contiene una emoción, un ritmo o una historia que se revela cuando nos detenemos a contemplarla con atención. La poesía permite acercarse a ese territorio invisible.
-passionBanner: /images/cms/sobre-pasion.jpg
+passionIntroQuote: >-
+  Poemarte nace del deseo de acompañar la creación artística con la fuerza de la
+  palabra. Cada poema es un eco, una caricia que traduce lo que la obra sugiere.
+passionIntroBody: >-
+  Cada obra contiene una emoción, un ritmo o una historia que se revela cuando
+  nos detenemos a contemplarla con atención. La poesía permite acercarse a ese
+  territorio invisible.
+passionBanner: /images/cms/passionBanner.jpg
 passionBannerQuote: Creemos que el arte no solo se mira; también se escucha.
 passionTips:
   - title: Escuchar el arte con atención
-    body: Cada obra tiene un lenguaje propio que se revela cuando nos detenemos a contemplarla sin prisa.
+    body: >-
+      Cada obra tiene un lenguaje propio que se revela cuando nos detenemos a
+      contemplarla sin prisa.
   - title: Dejar que el poema nazca de la obra
     body: La poesía no explica el arte; dialoga con él y acompaña su significado.
   - title: Crear experiencias que conectan
-    body: Cuando arte y palabra se encuentran, la relación entre la obra y el espectador se vuelve más profunda.
-
+    body: >-
+      Cuando arte y palabra se encuentran, la relación entre la obra y el
+      espectador se vuelve más profunda.
 processTitle: El proceso de creación poética
-processIntro: Cada poema comienza con una mirada. Observar una obra es detener el tiempo, permitir que los sentidos se abran y que el silencio hable.
+processIntro: >-
+  Cada poema comienza con una mirada. Observar una obra es detener el tiempo,
+  permitir que los sentidos se abran y que el silencio hable.
 processFases:
   - title: Escuchar la obra
     sub: Todo comienza con un encuentro con la obra.
-    body: Todo comienza con un encuentro con la obra. Antes de escribir, es necesario detenerse y observar. Comprender el universo creativo del artista, la intención de la pieza, su materialidad y la emoción que transmite. Este primer momento es un ejercicio de escucha. La obra marca el ritmo y abre el espacio donde el poema podrá nacer.
-    image: /images/cms/proceso-fase1.jpg
+    body: >-
+      Todo comienza con un encuentro con la obra. Antes de escribir, es
+      necesario detenerse y observar. Comprender el universo creativo del
+      artista, la intención de la pieza, su materialidad y la emoción que
+      transmite. Este primer momento es un ejercicio de escucha. La obra marca
+      el ritmo y abre el espacio donde el poema podrá nacer.
+    image: /images/cms/processFases/0/image.jpg
   - title: Escribir su banda sonora de palabras
-    sub: A partir de esa experiencia se crea un poema original inspirado en la obra.
-    body: A partir de esa experiencia se escribe un poema original inspirado en la obra. El texto se trabaja con cuidado para que dialogue con ella sin explicarla ni limitar su interpretación. El poema no busca explicar la pieza; su intención es acompañarla, dialogar con ella y abrir nuevas resonancias para quien la contempla.
-    image: /images/cms/proceso-fase2.jpg
+    sub: >-
+      A partir de esa experiencia se crea un poema original inspirado en la
+      obra.
+    body: >-
+      A partir de esa experiencia se escribe un poema original inspirado en la
+      obra. El texto se trabaja con cuidado para que dialogue con ella sin
+      explicarla ni limitar su interpretación. El poema no busca explicar la
+      pieza; su intención es acompañarla, dialogar con ella y abrir nuevas
+      resonancias para quien la contempla.
+    image: /images/cms/processFases/1/image.jpg
   - title: El arte se expande
     sub: El último paso es decidir cómo el poema acompañará a la obra.
-    body: El último paso es decidir cómo el poema acompañará a la obra. El texto puede presentarse de diferentes formas según el proyecto; como parte de una exposición, integrado en una pieza artesanal, en formato editorial o como experiencia para el público. El objetivo es que el poema amplíe la experiencia del arte.
-    image: /images/cms/proceso-fase3.jpg
-
+    body: >-
+      El último paso es decidir cómo el poema acompañará a la obra. El texto
+      puede presentarse de diferentes formas según el proyecto; como parte de
+      una exposición, integrado en una pieza artesanal, en formato editorial o
+      como experiencia para el público. El objetivo es que el poema amplíe la
+      experiencia del arte.
+    image: /images/cms/processFases/2/image.jpg
 goalTitle: Nuestro objetivo
 goalQuote: Ampliar la experiencia del arte.
-goalBody: |-
-  El objetivo de Poemarte es enriquecer la experiencia del arte. Un poema puede abrir una puerta distinta a la obra: despertar emociones, sugerir nuevas miradas o acompañar al espectador en su encuentro con ella.
+goalBody: >-
+  El objetivo de Poemarte es enriquecer la experiencia del arte. Un poema puede
+  abrir una puerta distinta a la obra: despertar emociones, sugerir nuevas
+  miradas o acompañar al espectador en su encuentro con ella.
 
-  Para artistas y creadores, Poemarte ofrece una forma de ampliar el relato de su obra y generar una conexión más íntima con su público.
 
-  Poemarte no sustituye al arte ni pretende explicarlo; lo escucha y lo acompaña para que su resonancia llegue más lejos.
-goalImage: /images/cms/sobre-objetivo.jpg
+  Para artistas y creadores, Poemarte ofrece una forma de ampliar el relato de
+  su obra y generar una conexión más íntima con su público.
 
+
+  Poemarte no sustituye al arte ni pretende explicarlo; lo escucha y lo acompaña
+  para que su resonancia llegue más lejos.
+goalImage: /images/cms/goalImage.jpg
 pricesTitle: Guía de precios
-pricesIntro: Cada proyecto de Poemarte es único, porque cada obra también lo es. Las colaboraciones se diseñan de forma personalizada.
+pricesIntro: >-
+  Cada proyecto de Poemarte es único, porque cada obra también lo es. Las
+  colaboraciones se diseñan de forma personalizada.
 pricesOpts:
   - title: Poema individual
-    desc: Un poema creado a partir de una obra concreta. Ideal para artistas que desean acompañar una pieza singular con su propia voz poética.
+    desc: >-
+      Un poema creado a partir de una obra concreta. Ideal para artistas que
+      desean acompañar una pieza singular con su propia voz poética.
     items:
       - Contemplación y escucha de la obra
       - Creación del poema original
       - Entrega en formato digital
   - title: Colección o exposición
-    desc: Acompañamiento poético para un conjunto de obras. Perfecto para exposiciones, colecciones artesanales o proyectos editoriales.
+    desc: >-
+      Acompañamiento poético para un conjunto de obras. Perfecto para
+      exposiciones, colecciones artesanales o proyectos editoriales.
     items:
       - Todo lo del plan individual
       - Poema por cada pieza o grupo
       - Textos de sala opcionales
       - Coherencia de tono y voz
   - title: Proyecto a medida
-    desc: Para proyectos culturales, instituciones o colaboraciones de largo recorrido. Diseñado desde cero según las necesidades.
+    desc: >-
+      Para proyectos culturales, instituciones o colaboraciones de largo
+      recorrido. Diseñado desde cero según las necesidades.
     items:
       - Todo lo del plan colección
       - Experiencias poéticas para el público
       - Formato editorial o expositivo
       - Acompañamiento continuo
-pricesCtaText: Tras una primera conversación para conocer el proyecto, se propone una colaboración adaptada a tus necesidades.
+pricesCtaText: >-
+  Tras una primera conversación para conocer el proyecto, se propone una
+  colaboración adaptada a tus necesidades.
 pricesCtaLabel: Hablemos de tu proyecto
