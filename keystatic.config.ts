@@ -178,6 +178,8 @@ export default config({
           directory: 'public/images/cms',
           publicPath: '/images/cms/',
         }),
+        listadoEyebrow: fields.text({ label: 'Listado · Etiqueta', defaultValue: 'Colaboraciones recientes' }),
+        listadoTagline: fields.text({ label: 'Listado · Tagline', multiline: true, defaultValue: 'Cada colaboración es un diálogo entre arte y palabra' }),
       },
     }),
 

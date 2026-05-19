@@ -20,8 +20,8 @@ const colabs = await getColaboraciones();
   />
   <Colaboraciones
     locale={locale}
-    eyebrow={page.heroTitle}
-    tagline={page.heroTagline}
+    eyebrow={page.listadoEyebrow ?? page.heroTitle}
+    tagline={page.listadoTagline ?? page.heroTagline}
     viewLabel={t('ui.view_collab')}
     items={colabs.map(c => ({
       slug: c.slug,
