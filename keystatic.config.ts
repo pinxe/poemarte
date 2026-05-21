@@ -381,7 +381,6 @@ export default config({
           description: 'Aparece en el hero y en el listado',
           directory: 'public/images/colaboraciones',
           publicPath: '/images/colaboraciones/',
-          validation: { isRequired: true },
         }),
         imagenSecundaria: fields.image({
           label: 'Imagen secundaria (opcional)',
