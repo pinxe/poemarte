@@ -158,8 +158,8 @@ export default config({
         heroTagline: fields.text({ label: 'Hero · Tagline', multiline: true }),
         heroImage: fields.image({
           label: 'Hero · Imagen',
-          directory: 'public/images/cms',
-          publicPath: '/images/cms/',
+          directory: 'public/images/cms/servicios',
+          publicPath: '/images/cms/servicios/',
         }),
       },
     }),
@@ -175,8 +175,8 @@ export default config({
         heroTagline: fields.text({ label: 'Hero · Tagline', multiline: true, defaultValue: 'Cada colaboración es un diálogo entre arte y palabra' }),
         heroImage: fields.image({
           label: 'Hero · Imagen',
-          directory: 'public/images/cms',
-          publicPath: '/images/cms/',
+          directory: 'public/images/cms/colaboraciones-page',
+          publicPath: '/images/cms/colaboraciones-page/',
         }),
         listadoEyebrow: fields.text({ label: 'Listado · Etiqueta', defaultValue: 'Colaboraciones recientes' }),
         listadoTagline: fields.text({ label: 'Listado · Tagline', multiline: true, defaultValue: 'Cada colaboración es un diálogo entre arte y palabra' }),
@@ -405,6 +405,11 @@ export default config({
               publicPath: '/images/colaboraciones/',
             }),
             alt: fields.text({ label: 'Texto alternativo' }),
+            caption: fields.text({
+              label: 'Pie de imagen',
+              description: 'Texto que aparece debajo de la imagen en la web (opcional)',
+              multiline: true,
+            }),
           }),
           {
             label: 'Galería',

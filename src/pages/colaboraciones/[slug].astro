@@ -117,9 +117,16 @@ const poemaLines = entry.poema?.split('\n') ?? [];
       <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {entry.galeria.map(g => (
-            <div class="reveal-gal aspect-[4/5] overflow-hidden">
-              <img src={g.imagen ?? ''} alt={g.alt} loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
-            </div>
+            <figure class="reveal-gal flex flex-col gap-3">
+              <div class="aspect-[4/5] overflow-hidden">
+                <img src={g.imagen ?? ''} alt={g.alt} loading="lazy" decoding="async" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+              </div>
+              {g.caption && (
+                <figcaption class="font-serif italic text-noche/75 text-sm md:text-base leading-relaxed">
+                  {g.caption}
+                </figcaption>
+              )}
+            </figure>
           ))}
         </div>
       </div>
