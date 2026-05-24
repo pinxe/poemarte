@@ -40,10 +40,10 @@ const { locale, eyebrow, tagline, viewLabel, items } = Astro.props;
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
             </div>
-            <div class="absolute inset-0 bg-noche/0 group-hover:bg-noche/50 transition-colors duration-500 flex items-end p-6">
-              <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
-                <span class="font-sans text-[10px] tracking-[0.3em] uppercase text-oro">{viewLabel}</span>
-                <div class="w-8 h-px bg-oro mt-2"></div>
+            <div class="absolute inset-0 bg-noche/0 group-hover:bg-noche/50 transition-colors duration-500 flex items-center justify-center p-6">
+              <div class="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400 text-center">
+                <span class="font-sans text-xs tracking-[0.3em] uppercase text-oro">{viewLabel}</span>
+                <div class="w-8 h-px bg-oro mt-2 mx-auto"></div>
               </div>
             </div>
           </a>
