@@ -4,13 +4,11 @@
 
 Entra a https://www.poemarte.com/keystatic i fes login amb GitHub.
 
-## Regla principal: branca de treball
+## On treballes
 
-**Sempre treballa amb la branca `keystatic/edicions` seleccionada** al desplegable de dalt a l'esquerra.
+Treballes directament sobre `main`, que ja apareix seleccionada per defecte al desplegable de dalt a l'esquerra. **Ja no cal la branca `keystatic/edicions`** (s'ha retirat).
 
-No facis servir `main` ni creïs branques noves. La branca `keystatic/edicions` és la que es publica directament a la web — cada Save desplega automàticament.
-
-**No cal crear Pull Requests.** Els canvis es publiquen sols.
+`main` és la branca que es publica a la web: cada **Save** desplega automàticament. **No cal crear Pull Requests ni branques noves** — simplement edita i guarda.
 
 ## Consell: acumula canvis abans de guardar
 
@@ -19,26 +17,17 @@ Cada cop que cliques **Save** es dispara un desplegament a Vercel. Per estalviar
 - Edita diversos camps o fins i tot diverses pàgines.
 - Clica **Save** una sola vegada al final.
 
-## No canviïs mai el slug
+## Canviar el slug (la URL)
 
-A les col·laboracions hi ha un camp **Slug** (la part final de la URL, ex: `xavier-vives`). **No el canviïs després de crear la col·laboració** — provoca un error de GraphQL i no es pot guardar.
+El camp **Slug** és la part final de la URL (ex: `xavier-vives`). Canviar-lo **canvia la URL pública** i pot deixar enllaços antics trencats, així que per als canvis de URL millor **demana-li a en Manel**.
 
-Si vols canviar la URL d'una col·laboració ja creada, demana-li a en Manel que ho faci des del codi.
+El **Títol** sí que es pot canviar lliurement (és diferent del slug).
 
-El **Títol** sí que es pot canviar lliurement, és diferent del slug.
+## Canviar imatges
 
-## Problema conegut amb imatges
+Ja pots canviar imatges amb normalitat: **Choose file** → tria la nova → **Save**.
 
-De vegades, en canviar una imatge i guardar, apareix l'error:
-
-> `[GraphQL] A path was requested for deletion which does not exist...`
-
-**Solució (en dos passos):**
-
-1. Clica **Remove** al camp de la imatge problemàtica.
-2. Clica **Save** (això elimina la referència antiga).
-3. Clica **Choose file** i puja la nova imatge.
-4. Clica **Save** un altre cop.
+Si algun cop apareix un error de GraphQL en guardar (`A path was requested for deletion...`), recarrega la pàgina amb **Ctrl+Shift+R** i torna-ho a provar. Si persisteix, avisa en Manel.
 
 ## Indicadors
 
