@@ -1,7 +1,7 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
 
 export default config({
-  storage: { kind: 'github', repo: 'pinxe/poemarte', branchPrefix: 'keystatic/' },
+  storage: { kind: 'github', repo: 'pinxe/poemarte' },
 
   ui: {
     brand: { name: 'Poemarte CMS' },
