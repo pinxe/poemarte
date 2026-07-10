@@ -17,6 +17,7 @@ whatBody: >-
 
   En sus poemas se entrelazan emoción y oficio, hasta encontrar la melodía que
   el arte guarda en secreto.
+whatImage: /images/cms/whatImage.jpg
 passionTitle: Nuestra pasión
 passionIntroQuote: >-
   Poemarte nace del deseo de acompañar la creación artística con la fuerza de la
@@ -62,6 +63,7 @@ processFases:
       explicarla ni limitar su interpretación. El poema no busca explicar la
       pieza; su intención es acompañarla, dialogar con ella y abrir nuevas
       resonancias para quien la contempla.
+    image: /images/cms/processFases/1/image.jpg
   - title: El arte se expande
     sub: El último paso es decidir cómo el poema acompañará a la obra.
     body: >-
@@ -70,6 +72,7 @@ processFases:
       una exposición, integrado en una pieza artesanal, en formato editorial o
       como experiencia para el público. El objetivo es que el poema amplíe la
       experiencia del arte.
+    image: /images/cms/processFases/2/image.jpg
 goalTitle: Nuestro objetivo
 goalQuote: Ampliar la experiencia del arte.
 goalBody: >-
