@@ -16,7 +16,7 @@ const items = await getServiciosItems();
     eyebrow={t('nav.services')}
     title={serv.heroTitle}
     tagline={serv.heroTagline}
-    image={serv.heroImage ?? '/images/cms/servicios-hero.jpg'}
+    image={serv.heroImage ?? '/images/servicios-hero.jpg'}
   />
   {items.map((s, i) => (
     <ServicioDetalle

@@ -20,7 +20,7 @@ const colabs = (await getColaboraciones()).filter(c => c.destacada).slice(0, 3);
     title={home.heroTitle}
     subtitle={home.heroSubtitle}
     tagline={home.heroTagline}
-    image={home.heroImage ?? '/images/cms/home-hero.jpg'}
+    image={home.heroImage ?? '/images/hero.jpg'}
   />
   <Presentacion
     eyebrow={home.presentationEyebrow}
@@ -29,7 +29,7 @@ const colabs = (await getColaboraciones()).filter(c => c.destacada).slice(0, 3);
     body1={home.presentationBody1}
     body2={home.presentationBody2}
     body3={home.presentationBody3}
-    image={home.presentationImage ?? '/images/cms/home-presentacion.jpg'}
+    image={home.presentationImage ?? '/images/presentacion.jpg'}
   />
   <Servicios
     locale={locale}

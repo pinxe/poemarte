@@ -16,19 +16,19 @@ const sobre = await getSobre();
   <SobreHero
     eyebrow={sobre.heroEyebrow}
     title={sobre.heroTitle}
-    image={sobre.heroImage ?? '/images/cms/sobre-hero.jpg'}
+    image={sobre.heroImage ?? '/images/sobre-hero.jpg'}
   />
   <QueHacemos
     title={sobre.whatTitle}
     quote={sobre.whatQuote}
     body={sobre.whatBody}
-    image={sobre.whatImage ?? '/images/cms/sobre-que-hacemos.jpg'}
+    image={sobre.whatImage ?? '/images/sobre-que-hacemos.jpg'}
   />
   <NuestraPassion
     title={sobre.passionTitle}
     introQuote={sobre.passionIntroQuote}
     introBody={sobre.passionIntroBody}
-    banner={sobre.passionBanner ?? '/images/cms/sobre-pasion.jpg'}
+    banner={sobre.passionBanner ?? '/images/sobre-pasion.jpg'}
     bannerQuote={sobre.passionBannerQuote}
     tips={[...sobre.passionTips]}
   />
@@ -46,7 +46,7 @@ const sobre = await getSobre();
     title={sobre.goalTitle}
     quote={sobre.goalQuote}
     body={sobre.goalBody}
-    image={sobre.goalImage ?? '/images/cms/sobre-objetivo.jpg'}
+    image={sobre.goalImage ?? '/images/sobre-objetivo.jpg'}
   />
   <GuiaPrecios
     locale={locale}
