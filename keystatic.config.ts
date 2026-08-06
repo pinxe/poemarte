@@ -31,8 +31,8 @@ export default config({
         }),
         heroImage: fields.image({
           label: 'Hero · Imagen de fondo',
-          directory: 'public/images/cms',
-          publicPath: '/images/cms/',
+          directory: 'public/images/cms/home',
+          publicPath: '/images/cms/home/',
         }),
 
         presentationEyebrow: fields.text({ label: 'Presentación · Etiqueta', defaultValue: 'Poemarte' }),
@@ -65,8 +65,8 @@ export default config({
         heroTitle:   fields.text({ label: 'Hero · Título', defaultValue: 'Sobre Poemarte' }),
         heroImage: fields.image({
           label: 'Hero · Imagen',
-          directory: 'public/images/cms',
-          publicPath: '/images/cms/',
+          directory: 'public/images/cms/sobre',
+          publicPath: '/images/cms/sobre/',
         }),
 
         whatTitle: fields.text({ label: '¿Qué es Poemarte? · Título', defaultValue: '¿Qué es Poemarte?' }),
